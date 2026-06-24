@@ -1,0 +1,145 @@
+.struggle-screen {
+  background: #4A4FD4;
+  position: relative;
+  overflow: hidden;
+}
+
+.struggle-content {
+  padding: 48px 28px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.struggle-title {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 30px;
+  color: white;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.struggle-hint {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1.5px;
+}
+
+.struggle-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.struggle-option {
+  background: var(--gray-100);
+  border-radius: 20px;
+  padding: 20px 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 3px solid transparent;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-md);
+}
+
+.struggle-option:first-child {
+  align-self: flex-start;
+  width: 80%;
+}
+
+.struggle-option:last-child {
+  align-self: flex-end;
+  width: 88%;
+}
+
+.struggle-option:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+.struggle-option--selected {
+  border-color: #F5C518;
+  background: white;
+  box-shadow: 0 4px 20px rgba(245, 197, 24, 0.4);
+}
+
+.struggle-option__label {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--gray-900);
+}
+
+.struggle-option__sub {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-600);
+}
+
+.struggle-learn-more {
+  background: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.struggle-learn-more:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.struggle-info {
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.struggle-continue {
+  background: #F5C518;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 16px;
+  border-radius: var(--radius-full);
+  width: 100%;
+  margin-top: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(245, 197, 24, 0.4);
+}
+
+.struggle-continue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(245, 197, 24, 0.5);
+}
+
+.struggle-mascot {
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  width: 180px;
+  z-index: 1;
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.struggle-mascot svg {
+  width: 100%;
+  height: auto;
+}

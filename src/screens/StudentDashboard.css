@@ -1,0 +1,294 @@
+.student-screen {
+  background: #f7f7f7;
+}
+
+.st-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 48px 24px 16px;
+  background: white;
+}
+
+.st-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.st-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.st-header-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.st-greeting {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gray-900);
+}
+
+.st-role {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-400);
+}
+
+.st-notif {
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/* Welcome banner */
+.st-welcome-banner {
+  margin: 16px;
+  background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: 150px;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(46, 204, 113, 0.35);
+}
+
+/* Decorative dots */
+.st-welcome-banner::before {
+  content: '✦ ✦ ✦ ✦ ✦';
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  right: 12px;
+  font-size: 8px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 16px;
+}
+
+.st-welcome-text {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 20px;
+  z-index: 1;
+}
+
+.st-welcome-text h2 {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 22px;
+  color: white;
+  line-height: 1.2;
+}
+
+.st-play-btn {
+  background: #F5C518;
+  color: #1a1a1a;
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.st-play-btn:hover {
+  transform: scale(1.04);
+}
+
+.st-flame-mascot {
+  width: 120px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.st-flame-mascot svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Section title */
+.st-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-600);
+  padding: 16px 24px 8px;
+}
+
+/* Recent game card */
+.st-recent-card {
+  margin: 0 16px;
+  border-radius: var(--radius-lg);
+  padding: 20px 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+}
+
+.st-recent-card:hover {
+  transform: scale(1.01);
+}
+
+.st-recent-nums {
+  position: relative;
+  width: 80px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.num {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.n1 { font-size: 28px; color: #FF6B6B; top: 0; left: 30px; }
+.n4 { font-size: 22px; color: #FF9F43; top: 0; left: 54px; }
+.n2 { font-size: 20px; color: #54A0FF; top: 30px; left: 0; }
+.n5 { font-size: 26px; color: #5F27CD; top: 28px; left: 26px; }
+.n6 { font-size: 20px; color: #00D2D3; top: 44px; left: 0; }
+.n3 { font-size: 22px; color: #FF9F43; top: 44px; left: 50px; }
+
+.st-recent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.st-recent-name {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 20px;
+  color: #1a1a1a;
+}
+
+.st-recent-sub {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.5);
+}
+
+.st-recent-shark {
+  font-size: 28px;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Frequent games grid */
+.st-frequent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.st-freq-card {
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 140px;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.st-freq-card::after {
+  content: '★';
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+
+.st-freq-card:hover {
+  transform: scale(1.03);
+}
+
+.st-freq-emoji {
+  font-size: 32px;
+}
+
+.st-freq-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.st-freq-play {
+  background: rgba(255,255,255,0.25);
+  color: white;
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.st-freq-play:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.st-switch-row {
+  padding: 16px 16px 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.st-switch-btn {
+  background: #4A4FD4;
+  color: white;
+  border-radius: var(--radius-full);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(74, 79, 212, 0.35);
+}
+
+.st-switch-btn:hover {
+  background: #3a3fc4;
+  transform: translateY(-1px);
+}
+
+.st-city-strip {
+  text-align: center;
+  font-size: 28px;
+  padding: 16px 0 24px;
+  letter-spacing: 4px;
+  filter: grayscale(0.2);
+  opacity: 0.7;
+}
