@@ -3,7 +3,7 @@ import BottomNav from '../components/BottomNav'
 import './StudentDashboard.css'
 
 interface Props {
-  onSwitchToCaregiver: () => void
+  onNavigate: (dest: 'games' | 'caregiver') => void
 }
 
 const recentGame = {
@@ -28,7 +28,7 @@ const frequentGames = [
   },
 ]
 
-export default function StudentDashboard({ onSwitchToCaregiver }: Props) {
+export default function StudentDashboard({ onNavigate }: Props) {
   const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
 
   return (
@@ -130,7 +130,7 @@ export default function StudentDashboard({ onSwitchToCaregiver }: Props) {
 
         {/* Switch to caregiver */}
         <div className="st-switch-row">
-          <button className="st-switch-btn" onClick={onSwitchToCaregiver}>
+          <button className="st-switch-btn" onClick={() => onNavigate('caregiver')}>
             👩 Switch to Caregiver View
           </button>
         </div>
@@ -143,7 +143,8 @@ export default function StudentDashboard({ onSwitchToCaregiver }: Props) {
 
       <BottomNav active={activeNav} onNavigate={(n) => {
         setActiveNav(n)
-        if (n === 'family') onSwitchToCaregiver()
+        if (n === 'games') onNavigate('games')
+        else if (n === 'family') onNavigate('caregiver')
       }} />
     </div>
   )

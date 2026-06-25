@@ -4,7 +4,7 @@ import BottomNav from '../components/BottomNav'
 import './CaregiverDashboard.css'
 
 interface Props {
-  onSwitchToStudent: () => void
+  onNavigate: (dest: 'games' | 'family' | 'student') => void
 }
 
 const gameData = [
@@ -17,7 +17,7 @@ const gameData = [
 const tabs = ['Games', 'Weekly', 'Monthly'] as const
 type Tab = typeof tabs[number]
 
-export default function CaregiverDashboard({ onSwitchToStudent }: Props) {
+export default function CaregiverDashboard({ onNavigate }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('Games')
   const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
 
@@ -108,7 +108,7 @@ export default function CaregiverDashboard({ onSwitchToStudent }: Props) {
 
         {/* Switch to student view */}
         <div className="cg-switch-row">
-          <button className="cg-switch-btn" onClick={onSwitchToStudent}>
+          <button className="cg-switch-btn" onClick={() => onNavigate('student')}>
             👦 Switch to Student View
           </button>
         </div>
@@ -116,7 +116,8 @@ export default function CaregiverDashboard({ onSwitchToStudent }: Props) {
 
       <BottomNav active={activeNav} onNavigate={(n) => {
         setActiveNav(n)
-        if (n === 'family') onSwitchToStudent()
+        if (n === 'games') onNavigate('games')
+        else if (n === 'family') onNavigate('family')
       }} />
     </div>
   )
