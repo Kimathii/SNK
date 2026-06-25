@@ -127,7 +127,7 @@ export default function LandingPage({ onSignUp, onLogin }: Props) {
           <div className="lp-testimonials">
             <div className="lp-testimonial">
               <p className="lp-testimonial-text">"Samuel went from dreading reading to asking to play Wordsplash every evening. SNK changed our lives."</p>
-              <span className="lp-testimonial-author">— Audrey M., Lagos</span>
+              <span className="lp-testimonial-author">— Sandra M., Lagos</span>
             </div>
             <div className="lp-testimonial">
               <p className="lp-testimonial-text">"The progress charts help me have real conversations with his school. I finally feel informed."</p>

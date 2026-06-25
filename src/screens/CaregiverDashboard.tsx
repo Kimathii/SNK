@@ -36,7 +36,7 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
             </svg>
           </div>
           <div className="cg-header-text">
-            <span className="cg-greeting">HEY, Audrey</span>
+            <span className="cg-greeting">HEY, Sandra</span>
             <span className="cg-role">Caregiver</span>
           </div>
           <button className="cg-notif" aria-label="Notifications">🔔</button>
