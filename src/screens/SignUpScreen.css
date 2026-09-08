@@ -4,7 +4,7 @@
 
 .signup-hero {
   background: #2ECC71;
-  height: 340px;
+  height: clamp(230px, 30vh, 280px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -15,8 +15,8 @@
 }
 
 .signup-mascot {
-  width: 200px;
-  margin-bottom: -60px;
+  width: 160px;
+  margin-bottom: -45px;
   position: relative;
   z-index: 2;
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
@@ -29,17 +29,17 @@
 
 .signup-body {
   flex: 1;
-  padding: 80px 32px 32px;
+  padding: 56px 20px max(24px, var(--safe-bottom));
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .signup-title {
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 28px;
+  font-size: 24px;
   color: var(--gray-600);
   letter-spacing: 2px;
   text-align: center;
@@ -47,7 +47,7 @@
 
 .signup-input {
   width: 100%;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border: 2px solid var(--gray-200);
   border-radius: var(--radius-full);
   font-size: 14px;
@@ -69,15 +69,15 @@
 
 .signup-oauth {
   display: flex;
-  gap: 16px;
+  gap: 14px;
 }
 
 .oauth-btn {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--gray-200);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--gray-600);
   transition: all 0.2s;
@@ -96,19 +96,19 @@
 }
 
 .signup-hint {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--gray-400);
   text-align: center;
-  margin-top: -8px;
+  margin-top: -6px;
 }
 
 .signup-cta {
   width: 100%;
-  padding: 16px;
+  padding: 14px;
   border-radius: var(--radius-full);
   background: var(--gray-200);
   color: var(--gray-400);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 1px;
   transition: all 0.2s;
@@ -135,12 +135,12 @@
   color: var(--gray-400);
   letter-spacing: 1px;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .signup-login-link {
   background: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--gray-600);
   letter-spacing: 1px;

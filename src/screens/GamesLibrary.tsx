@@ -4,11 +4,25 @@ import './GamesLibrary.css'
 interface Props {
   onBack: () => void
   role: 'caregiver' | 'student'
+  onPlayGame?: (gameId: string) => void
 }
 
 type Filter = 'All' | 'SLD' | 'DND'
 
 const GAMES = [
+  {
+    id: 'wordsplash',
+    name: 'WordSplash',
+    tagline: 'Splash through words & letters',
+    emoji: '💦',
+    bg: 'linear-gradient(135deg, #1B2A4A 0%, #4A4FD4 100%)',
+    tags: ['SLD'] as Filter[],
+    skills: ['Dyslexia', 'Dysgraphia', 'Phonics'],
+    difficulty: 'All Levels (5 Worlds)',
+    plays: 1480,
+    color: '#00D2D3',
+    featured: true,
+  },
   {
     id: 'numbershark',
     name: 'Numbershark',
@@ -20,19 +34,6 @@ const GAMES = [
     difficulty: 'Beginner',
     plays: 1240,
     color: '#F5C518',
-    featured: true,
-  },
-  {
-    id: 'wordsplash',
-    name: 'Wordsplash',
-    tagline: 'Splash through words & letters',
-    emoji: '📖',
-    bg: 'linear-gradient(135deg, #4A4FD4 0%, #7B7FF0 100%)',
-    tags: ['SLD'] as Filter[],
-    skills: ['Dyslexia', 'Dysgraphia'],
-    difficulty: 'Beginner',
-    plays: 980,
-    color: '#4A4FD4',
     featured: true,
   },
   {
@@ -65,7 +66,7 @@ const GAMES = [
 
 const FILTERS: Filter[] = ['All', 'SLD', 'DND']
 
-export default function GamesLibrary({ onBack, role }: Props) {
+export default function GamesLibrary({ onBack, role, onPlayGame }: Props) {
   const [activeFilter, setActiveFilter] = useState<Filter>('All')
   const [search, setSearch] = useState('')
 
@@ -120,7 +121,12 @@ export default function GamesLibrary({ onBack, role }: Props) {
             <p className="gm-section-label">⭐ Featured</p>
             <div className="gm-featured-list">
               {featured.map((game) => (
-                <div key={game.id} className="gm-featured-card" style={{ background: game.bg }}>
+                <div
+                  key={game.id}
+                  className="gm-featured-card"
+                  style={{ background: game.bg }}
+                  onClick={() => onPlayGame && onPlayGame(game.id)}
+                >
                   <div className="gm-featured-left">
                     <div className="gm-featured-emoji">{game.emoji}</div>
                     <div className="gm-featured-info">
@@ -139,7 +145,13 @@ export default function GamesLibrary({ onBack, role }: Props) {
                         <span key={s} className="gm-skill-chip">{s}</span>
                       ))}
                     </div>
-                    <button className="gm-play-btn">
+                    <button
+                      className="gm-play-btn"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        if (onPlayGame) onPlayGame(game.id)
+                      }}
+                    >
                       {role === 'student' ? '▶ Play' : '▶ Preview'}
                     </button>
                   </div>
@@ -155,7 +167,12 @@ export default function GamesLibrary({ onBack, role }: Props) {
             <p className="gm-section-label">More Games</p>
             <div className="gm-grid">
               {rest.map((game) => (
-                <div key={game.id} className="gm-grid-card" style={{ background: game.bg }}>
+                <div
+                  key={game.id}
+                  className="gm-grid-card"
+                  style={{ background: game.bg }}
+                  onClick={() => onPlayGame && onPlayGame(game.id)}
+                >
                   <div className="gm-grid-emoji">{game.emoji}</div>
                   <span className="gm-grid-name">{game.name}</span>
                   <div className="gm-grid-tags">
@@ -163,7 +180,13 @@ export default function GamesLibrary({ onBack, role }: Props) {
                       <span key={t} className="gm-tag gm-tag--light gm-tag--sm">{t}</span>
                     ))}
                   </div>
-                  <button className="gm-grid-play">
+                  <button
+                    className="gm-grid-play"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (onPlayGame) onPlayGame(game.id)
+                    }}
+                  >
                     {role === 'student' ? 'Play' : 'Preview'}
                   </button>
                 </div>

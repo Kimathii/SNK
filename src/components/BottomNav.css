@@ -1,5 +1,5 @@
 .bottom-nav {
-  padding: 8px 0 16px;
+  padding: 8px 0 max(16px, env(safe-area-inset-bottom, 16px));
   background: white;
   display: flex;
   flex-direction: column;
@@ -8,6 +8,7 @@
   border-top: 1px solid var(--gray-100);
   box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
   flex-shrink: 0;
+  z-index: 20;
 }
 
 .bottom-nav__pill {

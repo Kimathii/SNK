@@ -4,14 +4,14 @@ import BottomNav from '../components/BottomNav'
 import './CaregiverDashboard.css'
 
 interface Props {
-  onNavigate: (dest: 'games' | 'family' | 'student') => void
+  onNavigate: (dest: 'games' | 'family' | 'student' | 'wordsplash') => void
 }
 
 const gameData = [
-  { name: 'Numbershark', value: 100, color: '#4A4FD4' },
-  { name: 'Wordsplash', value: 50, color: '#6B70E8' },
-  { name: 'Detective\nLonny', value: 70, color: '#4A4FD4' },
-  { name: 'Jungle\nAdventure', value: 30, color: '#6B70E8' },
+  { name: 'WordSplash', value: 100, color: '#00D2D3' },
+  { name: 'Numbershark', value: 80, color: '#F5C518' },
+  { name: 'Detective\nLonny', value: 70, color: '#8E44AD' },
+  { name: 'Jungle\nAdventure', value: 40, color: '#2ECC71' },
 ]
 
 const tabs = ['Games', 'Weekly', 'Monthly'] as const

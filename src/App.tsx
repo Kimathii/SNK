@@ -9,6 +9,7 @@ import StudentDashboard from './screens/StudentDashboard'
 import GamesLibrary from './screens/GamesLibrary'
 import FamilyPage from './screens/FamilyPage'
 import ChildProfile from './screens/ChildProfile'
+import WordSplashGame from './games/wordsplash/WordSplashGame'
 
 export type Screen =
   | 'landing'
@@ -21,6 +22,7 @@ export type Screen =
   | 'games'
   | 'family'
   | 'child-profile'
+  | 'wordsplash'
 
 export type UserRole = 'caregiver' | 'student' | null
 
@@ -41,6 +43,13 @@ export default function App() {
   const navigate = (screen: Screen) => setCurrentScreen(screen)
 
   const homeScreen = appState.userRole === 'student' ? 'student' : 'caregiver'
+
+  const handlePlayGame = (gameId: string) => {
+    if (gameId === 'wordsplash') {
+      navigate('wordsplash')
+    }
+    // Future games can be added here
+  }
 
   return (
     <div className="phone-shell">
@@ -102,7 +111,12 @@ export default function App() {
         <GamesLibrary
           role={appState.userRole ?? 'caregiver'}
           onBack={() => navigate(homeScreen)}
+          onPlayGame={handlePlayGame}
         />
+      )}
+
+      {currentScreen === 'wordsplash' && (
+        <WordSplashGame onBackToApp={() => navigate('games')} />
       )}
 
       {currentScreen === 'family' && (

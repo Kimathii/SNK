@@ -2,17 +2,27 @@
   background: #f7f7f7;
 }
 
+.student-screen .screen-scroll {
+  padding-bottom: 20px;
+}
+
 .st-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 48px 24px 16px;
+  gap: 12px;
+  padding: max(20px, var(--safe-top)) 16px 14px;
   background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--gray-100);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  flex-shrink: 0;
 }
 
 .st-avatar {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -31,13 +41,13 @@
 }
 
 .st-greeting {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--gray-900);
 }
 
 .st-role {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--gray-400);
 }
@@ -51,15 +61,15 @@
 
 /* Welcome banner */
 .st-welcome-banner {
-  margin: 16px;
+  margin: 12px 16px;
   background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
   border-radius: var(--radius-lg);
-  padding: 24px 20px 0;
+  padding: 20px 16px 0;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   overflow: hidden;
-  min-height: 150px;
+  min-height: 135px;
   position: relative;
   box-shadow: 0 6px 24px rgba(46, 204, 113, 0.35);
 }
@@ -68,7 +78,7 @@
 .st-welcome-banner::before {
   content: '✦ ✦ ✦ ✦ ✦';
   position: absolute;
-  top: 16px;
+  top: 14px;
   left: 12px;
   right: 12px;
   font-size: 8px;
@@ -79,15 +89,15 @@
 .st-welcome-text {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding-bottom: 20px;
+  gap: 12px;
+  padding-bottom: 16px;
   z-index: 1;
 }
 
 .st-welcome-text h2 {
   font-family: var(--font-body);
   font-weight: 900;
-  font-size: 22px;
+  font-size: 20px;
   color: white;
   line-height: 1.2;
 }
@@ -96,8 +106,8 @@
   background: #F5C518;
   color: #1a1a1a;
   border-radius: var(--radius-full);
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 9px 18px;
+  font-size: 13px;
   font-weight: 800;
   cursor: pointer;
   width: fit-content;
@@ -110,7 +120,7 @@
 }
 
 .st-flame-mascot {
-  width: 120px;
+  width: 105px;
   flex-shrink: 0;
   align-self: flex-end;
 }
@@ -122,17 +132,17 @@
 
 /* Section title */
 .st-section-title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
   color: var(--gray-600);
-  padding: 16px 24px 8px;
+  padding: 14px 16px 8px;
 }
 
 /* Recent game card */
 .st-recent-card {
   margin: 0 16px;
   border-radius: var(--radius-lg);
-  padding: 20px 20px 20px 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -141,7 +151,7 @@
   transition: transform 0.2s;
   position: relative;
   overflow: hidden;
-  min-height: 100px;
+  min-height: 96px;
 }
 
 .st-recent-card:hover {
@@ -200,18 +210,18 @@
 .st-frequent-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
   padding: 0 16px;
 }
 
 .st-freq-card {
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 14px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  min-height: 140px;
+  min-height: 130px;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s;
@@ -239,7 +249,7 @@
 
 .st-freq-name {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 17px;
   color: white;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -249,7 +259,7 @@
   background: rgba(255,255,255,0.25);
   color: white;
   border-radius: var(--radius-full);
-  padding: 6px 14px;
+  padding: 5px 14px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -262,7 +272,7 @@
 }
 
 .st-switch-row {
-  padding: 16px 16px 8px;
+  padding: 14px 16px 4px;
   display: flex;
   justify-content: center;
 }
@@ -286,8 +296,8 @@
 
 .st-city-strip {
   text-align: center;
-  font-size: 28px;
-  padding: 16px 0 24px;
+  font-size: 26px;
+  padding: 12px 0 16px;
   letter-spacing: 4px;
   filter: grayscale(0.2);
   opacity: 0.7;

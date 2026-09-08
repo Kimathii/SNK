@@ -5,28 +5,29 @@
 }
 
 .struggle-content {
-  padding: 48px 28px 20px;
+  padding: max(24px, var(--safe-top)) 20px max(24px, var(--safe-bottom));
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   position: relative;
   z-index: 2;
+  overflow-y: auto;
 }
 
 .struggle-title {
   font-family: var(--font-body);
   font-weight: 900;
-  font-size: 30px;
+  font-size: clamp(24px, 6.5vw, 28px);
   color: white;
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
 
 .struggle-hint {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.65);
   letter-spacing: 1.5px;
 }
 
@@ -34,13 +35,13 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .struggle-option {
   background: var(--gray-100);
-  border-radius: 20px;
-  padding: 20px 24px;
+  border-radius: 18px;
+  padding: 16px 18px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -48,16 +49,7 @@
   border: 3px solid transparent;
   transition: all 0.2s;
   box-shadow: var(--shadow-md);
-}
-
-.struggle-option:first-child {
-  align-self: flex-start;
-  width: 80%;
-}
-
-.struggle-option:last-child {
-  align-self: flex-end;
-  width: 88%;
+  width: 100%;
 }
 
 .struggle-option:hover {
@@ -74,7 +66,7 @@
 .struggle-option__label {
   font-family: var(--font-body);
   font-weight: 900;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--gray-900);
 }
 
@@ -86,7 +78,7 @@
 
 .struggle-learn-more {
   background: none;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -94,17 +86,17 @@
   cursor: pointer;
   text-align: left;
   padding: 0;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .struggle-learn-more:hover {
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.95);
 }
 
 .struggle-info {
   background: rgba(255,255,255,0.15);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 14px 16px;
   color: white;
   font-size: 13px;
   font-weight: 600;
@@ -114,12 +106,12 @@
 .struggle-continue {
   background: #F5C518;
   color: #1a1a1a;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  padding: 16px;
+  padding: 14px;
   border-radius: var(--radius-full);
   width: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
   transition: all 0.2s;
   box-shadow: 0 4px 16px rgba(245, 197, 24, 0.4);
 }
@@ -133,7 +125,7 @@
   position: absolute;
   bottom: 0;
   right: -10px;
-  width: 180px;
+  width: 160px;
   z-index: 1;
   opacity: 0.95;
   pointer-events: none;

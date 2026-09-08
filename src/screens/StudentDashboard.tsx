@@ -3,28 +3,31 @@ import BottomNav from '../components/BottomNav'
 import './StudentDashboard.css'
 
 interface Props {
-  onNavigate: (dest: 'games' | 'caregiver') => void
+  onNavigate: (dest: 'games' | 'caregiver' | 'wordsplash') => void
 }
 
 const recentGame = {
-  name: 'Numbershark',
-  emoji: '🦈',
-  color: '#F5C518',
-  bg: 'linear-gradient(135deg, #F5C518 0%, #FFE066 100%)',
+  id: 'wordsplash',
+  name: 'WordSplash',
+  emoji: '💦',
+  color: '#00D2D3',
+  bg: 'linear-gradient(135deg, #1B2A4A 0%, #4A4FD4 100%)',
 }
 
 const frequentGames = [
   {
+    id: 'wordsplash',
     name: 'WordSplash',
     color: '#4A4FD4',
-    bg: 'linear-gradient(135deg, #4A4FD4 0%, #7B7FF0 100%)',
-    emoji: '📖',
+    bg: 'linear-gradient(135deg, #1B2A4A 0%, #4A4FD4 100%)',
+    emoji: '💦',
   },
   {
-    name: 'Jungle Adventure',
-    color: '#2ECC71',
-    bg: 'linear-gradient(135deg, #27ae60 0%, #2ECC71 100%)',
-    emoji: '🌿',
+    id: 'numbershark',
+    name: 'Numbershark',
+    color: '#F5C518',
+    bg: 'linear-gradient(135deg, #F5C518 0%, #FFE066 100%)',
+    emoji: '🦈',
   },
 ]
 
@@ -62,10 +65,12 @@ export default function StudentDashboard({ onNavigate }: Props) {
         <div className="st-welcome-banner">
           <div className="st-welcome-text">
             <h2>Welcome Back<br />Samuel</h2>
-            <button className="st-play-btn">let's play</button>
+            <button className="st-play-btn" onClick={() => onNavigate('wordsplash')}>
+              let's play
+            </button>
           </div>
           <div className="st-flame-mascot">
-            {/* Flame mascot - same as struggle screen but happier */}
+            {/* Flame mascot */}
             <svg viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M60 145 C30 145 10 120 10 95 C10 70 25 55 25 42 C25 28 35 18 45 13 C43 26 50 33 55 28 C53 48 70 52 65 67 C75 52 80 32 75 17 C88 25 96 38 96 53 C101 42 104 27 101 13 C115 25 120 47 120 72 C120 108 106 145 60 145Z"
@@ -100,27 +105,39 @@ export default function StudentDashboard({ onNavigate }: Props) {
 
         {/* Recently played */}
         <div className="st-section-title">Recently played</div>
-        <div className="st-recent-card" style={{ background: recentGame.bg }}>
+        <div
+          className="st-recent-card"
+          style={{ background: recentGame.bg }}
+          onClick={() => onNavigate('wordsplash')}
+        >
           <div className="st-recent-nums">
-            <span className="num n1">1</span>
-            <span className="num n4">4</span>
-            <span className="num n2">2</span>
-            <span className="num n5">5</span>
-            <span className="num n6">6</span>
-            <span className="num n3">3</span>
+            <span className="num n1">W</span>
+            <span className="num n4">O</span>
+            <span className="num n2">R</span>
+            <span className="num n5">D</span>
+            <span className="num n6">S</span>
+            <span className="num n3">!</span>
           </div>
           <div className="st-recent-info">
             <span className="st-recent-name">{recentGame.name}</span>
-            <span className="st-recent-sub">let's play</span>
+            <span className="st-recent-sub">let's play 5 worlds</span>
           </div>
-          <div className="st-recent-shark">🦈🦈</div>
+          <div className="st-recent-shark">💦🫧</div>
         </div>
 
         {/* Frequently played */}
         <div className="st-section-title">Frequently played</div>
         <div className="st-frequent-grid">
           {frequentGames.map((g) => (
-            <div key={g.name} className="st-freq-card" style={{ background: g.bg }}>
+            <div
+              key={g.name}
+              className="st-freq-card"
+              style={{ background: g.bg }}
+              onClick={() => {
+                if (g.id === 'wordsplash') onNavigate('wordsplash')
+                else onNavigate('games')
+              }}
+            >
               <div className="st-freq-emoji">{g.emoji}</div>
               <div className="st-freq-name">{g.name}</div>
               <button className="st-freq-play">Tap to play</button>
