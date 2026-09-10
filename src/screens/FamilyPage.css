@@ -258,3 +258,40 @@
 .fm-session-text strong {
   color: var(--gray-900);
 }
+
+/* Desktop layout improvements */
+@media (min-width: 768px) {
+  .family-screen .screen-scroll {
+    padding: 24px 32px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .fm-header {
+    background: transparent;
+    border-bottom: none;
+    padding: 12px 0 16px;
+  }
+
+  .fm-subtitle {
+    text-align: left;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .fm-children-list {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .fm-child-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+}
+

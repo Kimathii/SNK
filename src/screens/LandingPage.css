@@ -383,11 +383,108 @@
   color: white;
 }
 
-/* Footer */
-.lp-footer {
-  padding: 16px 16px max(24px, var(--safe-bottom));
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-  font-weight: 600;
+/* Desktop Web View Enhancements */
+@media (min-width: 768px) {
+  .landing-screen {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .lp-nav {
+    padding: 24px 32px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .lp-logo {
+    font-size: 32px;
+  }
+
+  .lp-hero {
+    padding: 60px 32px 40px;
+    align-items: center;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .lp-hero-title {
+    font-size: 48px;
+    line-height: 1.15;
+  }
+
+  .lp-hero-sub {
+    font-size: 18px;
+    max-width: 680px;
+  }
+
+  .lp-cta-primary {
+    max-width: 320px;
+    font-size: 17px;
+    padding: 18px 32px;
+  }
+
+  .lp-stats {
+    max-width: 800px;
+    margin: 20px auto 40px;
+    padding: 24px 32px;
+  }
+
+  .lp-stat-num {
+    font-size: 28px;
+  }
+
+  .lp-stat-label {
+    font-size: 13px;
+  }
+
+  .lp-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  .lp-section-title {
+    font-size: 28px;
+  }
+
+  .lp-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .lp-testimonials {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .lp-therapy-banner {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 24px 32px;
+  }
+
+  .lp-final-cta {
+    max-width: 800px;
+    margin: 40px auto 20px;
+    padding: 48px 32px;
+  }
+
+  .lp-final-cta h2 {
+    font-size: 32px;
+  }
+
+  .lp-final-cta p {
+    font-size: 16px;
+  }
+
+  .lp-final-cta .lp-cta-primary,
+  .lp-final-cta .lp-cta-secondary {
+    max-width: 340px;
+    margin: 0 auto;
+  }
 }
+

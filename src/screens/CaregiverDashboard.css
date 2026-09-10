@@ -253,25 +253,66 @@
   text-align: right;
 }
 
-.cg-switch-row {
-  padding: 6px 16px 16px;
-  display: flex;
-  justify-content: center;
+/* Desktop layout improvements */
+@media (min-width: 768px) {
+  .caregiver-screen .screen-scroll {
+    padding: 24px 32px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cg-header {
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    padding: 12px 0 20px;
+  }
+
+  .cg-greeting {
+    font-size: 26px;
+  }
+
+  .cg-actions {
+    background: transparent;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .cg-action-card {
+    padding: 20px 24px;
+    border-radius: 20px;
+    background: white;
+  }
+
+  .cg-action-label {
+    font-size: 16px;
+  }
+
+  .cg-chart-card {
+    margin: 0;
+    padding: 24px 28px;
+    border-radius: 24px;
+  }
+
+  .cg-info-banner {
+    margin: 0;
+    padding: 20px 24px;
+    border-radius: 20px;
+  }
+
+  .cg-games-row {
+    margin: 0;
+    padding: 16px 24px;
+    border-radius: 20px;
+  }
+
+  .cg-switch-row {
+    display: none; /* Handled via sidebar on desktop */
+  }
 }
 
-.cg-switch-btn {
-  background: var(--green-primary);
-  color: white;
-  border-radius: var(--radius-full);
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.35);
-}
-
-.cg-switch-btn:hover {
-  background: var(--green-dark);
-  transform: translateY(-1px);
-}

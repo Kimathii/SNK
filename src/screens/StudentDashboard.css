@@ -271,34 +271,68 @@
   background: rgba(255,255,255,0.4);
 }
 
-.st-switch-row {
-  padding: 14px 16px 4px;
-  display: flex;
-  justify-content: center;
+/* Desktop layout improvements */
+@media (min-width: 768px) {
+  .student-screen .screen-scroll {
+    padding: 24px 32px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .st-header {
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    padding: 12px 0 16px;
+  }
+
+  .st-greeting {
+    font-size: 26px;
+  }
+
+  .st-welcome-banner {
+    margin: 0;
+    padding: 32px 36px 0;
+    min-height: 180px;
+    border-radius: 28px;
+  }
+
+  .st-welcome-text h2 {
+    font-size: 32px;
+  }
+
+  .st-play-btn {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+
+  .st-flame-mascot {
+    width: 150px;
+  }
+
+  .st-recent-card {
+    margin: 0;
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .st-frequent-grid {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .st-freq-card {
+    min-height: 160px;
+    border-radius: 24px;
+  }
+
+  .st-switch-row {
+    display: none; /* Handled in desktop sidebar */
+  }
 }
 
-.st-switch-btn {
-  background: #4A4FD4;
-  color: white;
-  border-radius: var(--radius-full);
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(74, 79, 212, 0.35);
-}
-
-.st-switch-btn:hover {
-  background: #3a3fc4;
-  transform: translateY(-1px);
-}
-
-.st-city-strip {
-  text-align: center;
-  font-size: 26px;
-  padding: 12px 0 16px;
-  letter-spacing: 4px;
-  filter: grayscale(0.2);
-  opacity: 0.7;
-}

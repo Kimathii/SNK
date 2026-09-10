@@ -1,0 +1,251 @@
+.desktop-sidebar {
+  width: 280px;
+  background: #FFFFFF;
+  border-right: 1px solid #ECEFF5;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 24px 18px;
+  gap: 20px;
+  flex-shrink: 0;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.03);
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-logo .logo-s { color: #2ECC71; }
+.sidebar-logo .logo-n { color: #F5C518; }
+.sidebar-logo .logo-k { color: #4A4FD4; }
+.sidebar-logo .logo-feet { font-size: 20px; margin-left: 2px; }
+
+.sidebar-tagline {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #F8F9FD;
+  border: 1px solid #EDF0F7;
+  padding: 12px 14px;
+  border-radius: 16px;
+}
+
+.sidebar-avatar {
+  width: 40px;
+  height: 40px;
+  background: #EBEBFC;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-user-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1A1A1A;
+}
+
+.sidebar-user-role {
+  font-size: 11px;
+  color: #777777;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.sidebar-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #AAAAAA;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: transparent;
+  color: #4A5568;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-nav-link:hover {
+  background: #F1F4F9;
+  color: #1A1A1A;
+  transform: translateX(3px);
+}
+
+.sidebar-nav-link--active {
+  background: #4A4FD4 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 16px rgba(74, 79, 212, 0.3);
+}
+
+.sidebar-nav-icon {
+  font-size: 18px;
+}
+
+.sidebar-game-card {
+  background: linear-gradient(135deg, #1B2A4A 0%, #4A4FD4 100%);
+  border-radius: 16px;
+  padding: 14px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 8px 20px rgba(74, 79, 212, 0.25);
+}
+
+.sidebar-game-card:hover {
+  transform: translateY(-2px);
+}
+
+.sidebar-game-icon {
+  font-size: 24px;
+}
+
+.sidebar-game-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-game-title {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sidebar-game-sub {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+.sidebar-game-play {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #00D2D3;
+  color: #0F172A;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #ECEFF5;
+  padding-top: 16px;
+}
+
+.sidebar-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.sidebar-role-btn {
+  background: #F3F4F6;
+  color: #374151;
+  border: 1px solid #E5E7EB;
+}
+
+.sidebar-role-btn:hover {
+  background: #E5E7EB;
+}
+
+.sidebar-a11y-btn {
+  background: #EBEBFC;
+  color: #4A4FD4;
+  border: 1px solid rgba(74, 79, 212, 0.2);
+}
+
+.sidebar-a11y-btn:hover {
+  background: #4A4FD4;
+  color: #FFFFFF;
+}
+
+.sidebar-layout-btn {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.sidebar-layout-btn:hover {
+  background: #FDE68A;
+}
+
+/* Calm Mode specific sidebar styles */
+[data-theme="calm"] .desktop-sidebar {
+  background: #FAF7F2;
+  border-right-color: #E3DCCE;
+}
+
+[data-theme="calm"] .sidebar-profile {
+  background: #F1ECE3;
+  border-color: #E3DCCE;
+}
+
+[data-theme="calm"] .sidebar-nav-link--active {
+  background: #5B8A72 !important;
+  box-shadow: 0 4px 12px rgba(91, 138, 114, 0.3);
+}
+
+[data-theme="calm"] .sidebar-a11y-btn {
+  background: #DFE8E2;
+  color: #355848;
+}

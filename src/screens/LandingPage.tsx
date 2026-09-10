@@ -1,3 +1,5 @@
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
 import './LandingPage.css'
 
 interface Props {
@@ -32,6 +34,10 @@ const features = [
 export default function LandingPage({ onSignUp, onLogin }: Props) {
   return (
     <div className="landing-screen screen">
+      <TopBarHeader
+        title="SNK Learning Platform"
+        speechText="Welcome to SNK. The all-in-one sensory-friendly learning platform for children with special needs."
+      />
       <div className="screen-scroll">
 
         {/* Nav bar */}
@@ -48,10 +54,13 @@ export default function LandingPage({ onSignUp, onLogin }: Props) {
         {/* Hero */}
         <div className="lp-hero">
           <div className="lp-hero-badge">🏅 Trusted by 10,000+ families</div>
-          <h1 className="lp-hero-title">
-            Every Child<br />
-            <span className="lp-hero-highlight">Deserves to Thrive</span>
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+            <h1 className="lp-hero-title">
+              Every Child<br />
+              <span className="lp-hero-highlight">Deserves to Thrive</span>
+            </h1>
+            <SpeakButton text="Every child deserves to thrive. SNK is the all in one platform for special needs kids." size="md" />
+          </div>
           <p className="lp-hero-sub">
             SNK is the all-in-one platform for special needs kids — therapeutic games, progress tracking, and therapist access in one place.
           </p>

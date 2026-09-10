@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { BarChart, Bar, ResponsiveContainer, Cell, XAxis } from 'recharts'
 import { CHILDREN } from './FamilyPage'
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
 import './ChildProfile.css'
 
 interface Props {
@@ -118,7 +120,7 @@ const TABS: { id: TabId; label: string }[] = [
 
 export default function ChildProfile({ childId, onBack }: Props) {
   const [activeTab, setActiveTab] = useState<TabId>('overview')
-  const child = CHILDREN.find((c) => c.id === childId)!
+  const child = CHILDREN.find((c) => c.id === childId) ?? CHILDREN[0]
   const data = weeklyData[childId as keyof typeof weeklyData] ?? weeklyData.samuel
   const sessions = sessionHistory[childId as keyof typeof sessionHistory] ?? []
   const notes = therapistNotes[childId as keyof typeof therapistNotes] ?? []
@@ -126,11 +128,20 @@ export default function ChildProfile({ childId, onBack }: Props) {
 
   return (
     <div className="cp-screen screen">
+      <TopBarHeader
+        title={`${child.name}'s Profile`}
+        showBack={true}
+        onBack={onBack}
+        speechText={`This is ${child.name}'s profile. Age ${child.age}, ${child.condition}. Therapist is ${child.therapist}.`}
+      />
       {/* Hero header */}
       <div className="cp-hero" style={{ background: child.avatarBg }}>
         <button className="cp-back" onClick={onBack}>← Back</button>
         <div className="cp-hero-avatar">{child.avatar}</div>
-        <h1 className="cp-hero-name">{child.name}</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <h1 className="cp-hero-name">{child.name}</h1>
+          <SpeakButton text={`${child.name}. Age ${child.age}. Condition: ${child.condition}.`} size="sm" />
+        </div>
         <p className="cp-hero-meta">Age {child.age} · {child.condition}</p>
         <div className="cp-hero-tags">
           {child.tags.map((t) => (

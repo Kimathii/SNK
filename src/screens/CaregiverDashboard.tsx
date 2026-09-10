@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { BarChart, Bar, ResponsiveContainer, Cell } from 'recharts'
 import BottomNav from '../components/BottomNav'
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './CaregiverDashboard.css'
 
 interface Props {
@@ -20,9 +23,14 @@ type Tab = typeof tabs[number]
 export default function CaregiverDashboard({ onNavigate }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('Games')
   const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
+  const { activeLayout } = useAccessibility()
 
   return (
     <div className="caregiver-screen screen">
+      <TopBarHeader
+        title="Caregiver Hub"
+        speechText="Welcome to the Caregiver Dashboard. Here is Sandra's overview for Samuel."
+      />
       <div className="screen-scroll">
         {/* Header */}
         <div className="cg-header">
@@ -36,7 +44,10 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
             </svg>
           </div>
           <div className="cg-header-text">
-            <span className="cg-greeting">HEY, Sandra</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span className="cg-greeting">HEY, Sandra</span>
+              <SpeakButton text="Hey Sandra! You have 2 new milestone updates for Samuel." size="sm" />
+            </div>
             <span className="cg-role">Caregiver</span>
           </div>
           <button className="cg-notif" aria-label="Notifications">🔔</button>
@@ -94,7 +105,8 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
         {/* Info banner */}
         <div className="cg-info-banner">
           <div className="cg-play-btn">▶</div>
-          <span className="cg-info-text">KNOW MORE ABOUT YOU CHILD DIFFICULTIES</span>
+          <span className="cg-info-text">KNOW MORE ABOUT YOUR CHILD'S DIFFICULTIES</span>
+          <SpeakButton text="Know more about your child's difficulties. Explore guides for Dyslexia, ADHD and ASD." size="sm" />
         </div>
 
         {/* Know more about games */}
@@ -103,7 +115,9 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
             <span className="cg-game-chip">🦊</span>
             <span className="cg-game-chip">📝</span>
           </div>
-          <button className="cg-games-cta">Know more about games</button>
+          <button className="cg-games-cta" onClick={() => onNavigate('games')}>
+            Know more about games
+          </button>
         </div>
 
         {/* Switch to student view */}
@@ -114,11 +128,16 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
         </div>
       </div>
 
-      <BottomNav active={activeNav} onNavigate={(n) => {
-        setActiveNav(n)
-        if (n === 'games') onNavigate('games')
-        else if (n === 'family') onNavigate('family')
-      }} />
+      {activeLayout === 'phone' && (
+        <BottomNav
+          active={activeNav}
+          onNavigate={(n) => {
+            setActiveNav(n)
+            if (n === 'games') onNavigate('games')
+            else if (n === 'family') onNavigate('family')
+          }}
+        />
+      )}
     </div>
   )
 }

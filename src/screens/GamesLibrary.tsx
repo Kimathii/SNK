@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
 import './GamesLibrary.css'
 
 interface Props {
@@ -81,12 +83,12 @@ export default function GamesLibrary({ onBack, role, onPlayGame }: Props) {
 
   return (
     <div className="games-screen screen">
-      {/* Header */}
-      <div className="gm-header">
-        <button className="gm-back" onClick={onBack}>←</button>
-        <h1 className="gm-title">Games Library</h1>
-        <div className="gm-spacer" />
-      </div>
+      <TopBarHeader
+        title="Games Library"
+        showBack={true}
+        onBack={onBack}
+        speechText="Welcome to the Games Library! Choose a game to start learning."
+      />
 
       <div className="screen-scroll">
         {/* Search */}
@@ -130,7 +132,10 @@ export default function GamesLibrary({ onBack, role, onPlayGame }: Props) {
                   <div className="gm-featured-left">
                     <div className="gm-featured-emoji">{game.emoji}</div>
                     <div className="gm-featured-info">
-                      <span className="gm-featured-name">{game.name}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span className="gm-featured-name">{game.name}</span>
+                        <SpeakButton text={`${game.name}. ${game.tagline}. Targets ${game.skills.join(', ')}.`} size="sm" />
+                      </div>
                       <span className="gm-featured-tagline">{game.tagline}</span>
                       <div className="gm-featured-tags">
                         {game.tags.map((t) => (

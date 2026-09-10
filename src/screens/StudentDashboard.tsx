@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import BottomNav from '../components/BottomNav'
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './StudentDashboard.css'
 
 interface Props {
@@ -33,9 +36,14 @@ const frequentGames = [
 
 export default function StudentDashboard({ onNavigate }: Props) {
   const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
+  const { activeLayout } = useAccessibility()
 
   return (
     <div className="student-screen screen">
+      <TopBarHeader
+        title="Samuel's Adventure"
+        speechText="Welcome back Samuel! Let's play your favorite games today."
+      />
       <div className="screen-scroll">
         {/* Header */}
         <div className="st-header">
@@ -55,7 +63,10 @@ export default function StudentDashboard({ onNavigate }: Props) {
             </svg>
           </div>
           <div className="st-header-text">
-            <span className="st-greeting">HEY, SAMUEL</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span className="st-greeting">HEY, SAMUEL</span>
+              <SpeakButton text="Hey Samuel! Ready to learn and play?" size="sm" />
+            </div>
             <span className="st-role">Student</span>
           </div>
           <button className="st-notif" aria-label="Notifications">🔔</button>
@@ -64,9 +75,12 @@ export default function StudentDashboard({ onNavigate }: Props) {
         {/* Welcome banner */}
         <div className="st-welcome-banner">
           <div className="st-welcome-text">
-            <h2>Welcome Back<br />Samuel</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <h2>Welcome Back<br />Samuel</h2>
+              <SpeakButton text="Welcome back Samuel! Let's play!" size="md" />
+            </div>
             <button className="st-play-btn" onClick={() => onNavigate('wordsplash')}>
-              let's play
+              let's play ▶
             </button>
           </div>
           <div className="st-flame-mascot">
@@ -104,7 +118,10 @@ export default function StudentDashboard({ onNavigate }: Props) {
         </div>
 
         {/* Recently played */}
-        <div className="st-section-title">Recently played</div>
+        <div className="st-section-title" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span>Recently played</span>
+          <SpeakButton text="Recently played: WordSplash. Let's play 5 worlds!" size="sm" />
+        </div>
         <div
           className="st-recent-card"
           style={{ background: recentGame.bg }}
@@ -158,11 +175,16 @@ export default function StudentDashboard({ onNavigate }: Props) {
         </div>
       </div>
 
-      <BottomNav active={activeNav} onNavigate={(n) => {
-        setActiveNav(n)
-        if (n === 'games') onNavigate('games')
-        else if (n === 'family') onNavigate('caregiver')
-      }} />
+      {activeLayout === 'phone' && (
+        <BottomNav
+          active={activeNav}
+          onNavigate={(n) => {
+            setActiveNav(n)
+            if (n === 'games') onNavigate('games')
+            else if (n === 'family') onNavigate('caregiver')
+          }}
+        />
+      )}
     </div>
   )
 }

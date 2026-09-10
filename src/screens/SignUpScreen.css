@@ -138,16 +138,54 @@
   margin-bottom: 2px;
 }
 
-.signup-login-link {
-  background: none;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--gray-600);
-  letter-spacing: 1px;
-  text-decoration: underline;
-  cursor: pointer;
+/* Desktop Web Layout for Sign Up */
+@media (min-width: 768px) {
+  .signup-screen {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 600px;
+    max-width: 900px;
+    margin: auto;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  .signup-hero {
+    flex: 1;
+    height: auto;
+    border-radius: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .signup-mascot {
+    width: 220px;
+    margin-bottom: 0;
+  }
+
+  .signup-body {
+    flex: 1.2;
+    padding: 60px 48px;
+    justify-content: center;
+  }
+
+  .signup-title {
+    font-size: 32px;
+  }
+
+  .signup-input {
+    max-width: 380px;
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .signup-cta {
+    max-width: 380px;
+    padding: 16px;
+    font-size: 16px;
+  }
 }
 
-.signup-login-link:hover {
-  color: var(--green-dark);
-}

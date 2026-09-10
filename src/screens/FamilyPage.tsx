@@ -1,73 +1,98 @@
+import { useState } from 'react'
+import TopBarHeader from '../components/TopBarHeader'
+import SpeakButton from '../components/SpeakButton'
 import './FamilyPage.css'
+
+export interface Child {
+  id: string
+  name: string
+  age: number
+  condition: string
+  avatar: string
+  avatarBg: string
+  streak: number
+  weeklyHours: number
+  gamesPlayed: number
+  nextSession: string
+  progress: number
+  therapist: string
+  tags: string[]
+}
+
+export const CHILDREN: Child[] = [
+  {
+    id: 'samuel',
+    name: 'Samuel',
+    age: 7,
+    condition: 'Dyslexia & ADHD',
+    avatar: '👦',
+    avatarBg: '#4A4FD4',
+    streak: 5,
+    weeklyHours: 3.5,
+    gamesPlayed: 42,
+    nextSession: 'Thu, Jun 26 · 3:00 PM',
+    progress: 72,
+    therapist: 'Dr. Amaka Obi',
+    tags: ['SLD', 'DND', 'Phonics'],
+  },
+  {
+    id: 'grace',
+    name: 'Grace',
+    age: 5,
+    condition: 'Dyscalculia',
+    avatar: '👧',
+    avatarBg: '#F5C518',
+    streak: 3,
+    weeklyHours: 2.0,
+    gamesPlayed: 21,
+    nextSession: 'Fri, Jun 27 · 10:00 AM',
+    progress: 58,
+    therapist: 'Dr. Emeka Nwosu',
+    tags: ['SLD', 'Numbers'],
+  },
+  {
+    id: 'david',
+    name: 'David',
+    age: 9,
+    condition: 'Autism Spectrum (ASD)',
+    avatar: '🧒',
+    avatarBg: '#2ECC71',
+    streak: 8,
+    weeklyHours: 4.8,
+    gamesPlayed: 67,
+    nextSession: 'Mon, Jun 30 · 2:00 PM',
+    progress: 89,
+    therapist: 'Dr. Fatima Bello',
+    tags: ['DND', 'Speech', 'Logic'],
+  },
+]
 
 interface Props {
   onBack: () => void
   onSelectChild: (childId: string) => void
 }
 
-export const CHILDREN = [
-  {
-    id: 'samuel',
-    name: 'Samuel',
-    age: 9,
-    condition: 'Dyslexia · ADHD',
-    tags: ['SLD', 'DND'],
-    avatar: '👦',
-    avatarBg: '#4A90D9',
-    streak: 12,
-    weeklyHours: 7,
-    gamesPlayed: 42,
-    lastActive: 'Today',
-    nextSession: 'Thu, Jun 26 · 3:00 PM',
-    therapist: 'Dr. Amaka Obi',
-    progress: 78,
-  },
-  {
-    id: 'grace',
-    name: 'Grace',
-    age: 7,
-    condition: 'Dyscalculia',
-    tags: ['SLD'],
-    avatar: '👧',
-    avatarBg: '#E74C3C',
-    streak: 5,
-    weeklyHours: 4,
-    gamesPlayed: 21,
-    lastActive: 'Yesterday',
-    nextSession: 'Fri, Jun 27 · 10:00 AM',
-    therapist: 'Dr. Emeka Nwosu',
-    progress: 54,
-  },
-  {
-    id: 'david',
-    name: 'David',
-    age: 11,
-    condition: 'ASD · SLP',
-    tags: ['DND'],
-    avatar: '🧒',
-    avatarBg: '#8E44AD',
-    streak: 20,
-    weeklyHours: 10,
-    gamesPlayed: 67,
-    lastActive: 'Today',
-    nextSession: 'Mon, Jun 30 · 2:00 PM',
-    therapist: 'Dr. Fatima Bello',
-    progress: 91,
-  },
-]
-
 export default function FamilyPage({ onBack, onSelectChild }: Props) {
+  const [activeCondition, setActiveCondition] = useState<string>('All')
+
+  const filtered = CHILDREN.filter(
+    (c) => activeCondition === 'All' || c.tags.includes(activeCondition)
+  )
+
   return (
     <div className="family-screen screen">
-      {/* Header */}
-      <div className="fm-header">
-        <button className="fm-back" onClick={onBack}>←</button>
-        <h1 className="fm-title">My Children</h1>
-        <button className="fm-add" title="Add child">＋</button>
-      </div>
+      <TopBarHeader
+        title="Family Hub"
+        showBack={true}
+        onBack={onBack}
+        speechText="Welcome to the Family Hub! Manage your children's profiles, track milestones, and view therapist reports."
+      />
 
       <div className="screen-scroll">
-        <p className="fm-subtitle">Tap a child to view their full profile & progress</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '0 20px' }}>
+          <p className="fm-subtitle">Tap a child to view their full profile & progress</p>
+          <SpeakButton text="Tap a child to view their full profile and progress" />
+        </div>
 
         <div className="fm-children-list">
           {CHILDREN.map((child) => (
