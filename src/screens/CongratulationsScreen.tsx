@@ -31,13 +31,17 @@ export default function CongratulationsScreen({ onContinue }: Props) {
             {/* Right eyebrow */}
             <path d="M115 105 Q125 98 135 105" stroke="#1a1a2e" strokeWidth="4" strokeLinecap="round" fill="none" />
             {/* Left eye */}
-            <circle cx="75" cy="118" r="7" fill="#1a1a2e" />
-            <circle cx="78" cy="115" r="2.5" fill="white" />
+            <g className="congrats-eye">
+              <circle cx="75" cy="118" r="7" fill="#1a1a2e" />
+              <circle cx="78" cy="115" r="2.5" fill="white" />
+            </g>
             {/* Right eye */}
-            <circle cx="125" cy="118" r="7" fill="#1a1a2e" />
-            <circle cx="128" cy="115" r="2.5" fill="white" />
+            <g className="congrats-eye">
+              <circle cx="125" cy="118" r="7" fill="#1a1a2e" />
+              <circle cx="128" cy="115" r="2.5" fill="white" />
+            </g>
             {/* Smile / open mouth */}
-            <path d="M80 138 Q100 154 120 138" stroke="#1a1a2e" strokeWidth="4" strokeLinecap="round" fill="none" />
+            <path className="congrats-smile" d="M80 138 Q100 154 120 138" stroke="#1a1a2e" strokeWidth="4" strokeLinecap="round" fill="none" />
             {/* Thumbs up arm */}
             <rect x="155" y="80" width="36" height="90" rx="18" fill="#F5C518" transform="rotate(15 155 80)" />
             {/* Thumb fist */}

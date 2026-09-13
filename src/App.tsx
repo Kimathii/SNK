@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AccessibilityProvider, useAccessibility } from './context/AccessibilityContext'
 import AccessibilityModal from './components/AccessibilityModal'
 import DesktopSidebar from './components/DesktopSidebar'
@@ -36,17 +36,62 @@ export interface AppState {
   selectedChildId: string | null
 }
 
+const SCREEN_PATHS: Record<Screen, string> = {
+  landing: '/', splash: '/welcome', signup: '/signup', login: '/login',
+  struggle: '/learning-needs', congratulations: '/ready',
+  caregiver: '/caregiver', student: '/student', games: '/games',
+  family: '/family', 'child-profile': '/child-profile', wordsplash: '/wordsplash',
+}
+
+function screenFromLocation(): Screen {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  return (Object.keys(SCREEN_PATHS) as Screen[]).find(screen => SCREEN_PATHS[screen] === path) ?? 'landing'
+}
+
 function MainApp() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('landing')
+  const [currentScreen, setCurrentScreen] = useState<Screen>(screenFromLocation)
   const [appState, setAppState] = useState<AppState>({
     selectedStruggle: null,
-    userRole: null,
+    userRole: screenFromLocation() === 'student' ? 'student' : null,
     selectedChildId: null,
   })
 
   const { activeLayout } = useAccessibility()
 
-  const navigate = (screen: Screen) => setCurrentScreen(screen)
+  const navigate = useCallback((screen: Screen, replace = false) => {
+    const path = SCREEN_PATHS[screen]
+    if (window.location.pathname + window.location.search + window.location.hash !== path) {
+      if (replace) window.history.replaceState(null, '', path)
+      else window.history.pushState(null, '', path)
+    }
+    setCurrentScreen(screen)
+    if (screen === 'student' || screen === 'caregiver') {
+      setAppState(state => ({ ...state, userRole: screen }))
+    }
+  }, [])
+
+  useEffect(() => {
+    const onPopState = () => {
+      const screen = screenFromLocation()
+      setCurrentScreen(screen)
+      if (screen === 'student' || screen === 'caregiver') {
+        setAppState(state => ({ ...state, userRole: screen }))
+      }
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const anchor = currentScreen === 'landing' && window.location.hash
+        ? document.getElementById(window.location.hash.slice(1)) : null
+      if (anchor) anchor.scrollIntoView()
+      else document.querySelectorAll('.desktop-content-body, .screen-scroll, .auth-screen')
+        .forEach(element => { element.scrollTop = 0 })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [currentScreen])
 
   const homeScreen = appState.userRole === 'student' ? 'student' : 'caregiver'
 
@@ -87,7 +132,7 @@ function MainApp() {
         )}
 
         {currentScreen === 'splash' && (
-          <SplashScreen onNext={() => navigate('signup')} />
+          <SplashScreen onNext={() => navigate('signup', true)} />
         )}
 
         {(currentScreen === 'signup' || currentScreen === 'login') && (
@@ -127,6 +172,7 @@ function MainApp() {
               if (dest === 'games') navigate('games')
               else if (dest === 'family') navigate('family')
               else if (dest === 'student') navigate('student')
+              else if (dest === 'wordsplash') navigate('wordsplash')
             }}
           />
         )}
@@ -136,6 +182,7 @@ function MainApp() {
             onNavigate={(dest) => {
               if (dest === 'games') navigate('games')
               else if (dest === 'caregiver') navigate('caregiver')
+              else if (dest === 'wordsplash') navigate('wordsplash')
             }}
           />
         )}

@@ -15,8 +15,72 @@ function Logo() {
 }
 export default function LandingPage({ onSignUp, onLogin }: Props) {
   const { settings, updateSetting, openModal, activeLayout } = useAccessibility()
+  const pageRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const page = pageRef.current
+    if (!page || !('IntersectionObserver' in window) || !('animate' in page)) return
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const animations = new Set<Animation>()
+    const revealed = new WeakSet<Element>()
+    let observer: IntersectionObserver | undefined
+    const stop = () => {
+      observer?.disconnect()
+      animations.forEach(animation => animation.cancel())
+      animations.clear()
+      delete page.dataset.motionEnabled
+    }
+    const start = () => {
+      stop()
+      if (settings.reducedMotion || preference.matches) return
+      page.dataset.motionEnabled = 'true'
+      observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          observer?.unobserve(entry.target)
+          if (revealed.has(entry.target)) continue
+          revealed.add(entry.target)
+          const element = entry.target as HTMLElement
+          // Never conceal a control while someone is navigating with a keyboard.
+          if (element.contains(document.activeElement)) continue
+          const siblings = Array.from(element.parentElement?.children || [])
+          const stagger = element.matches('.lp-hero-copy > *, .lp-step, .lp-family-notes article, .lp-footer-top > *')
+            ? Math.min(siblings.indexOf(element), 4) * 75 : 0
+          const photo = element.classList.contains('lp-hero-image')
+          const animation = element.animate(
+            photo
+              ? [{ transform: 'scale(1.035)' }, { transform: 'scale(1)' }]
+              : [{ opacity: 0.15, transform: 'translateY(20px)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: photo ? 1200 : 650, delay: stagger, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' },
+          )
+          animations.add(animation)
+          animation.onfinish = () => animations.delete(animation)
+        }
+      }, { threshold: 0.08 })
+      page.querySelectorAll('.lp-hero-image, .lp-hero-copy > *, .lp-comfort, .lp-section-heading, .lp-step, .lp-game-feature, .lp-together > div:first-child, .lp-family-notes article, .lp-final-cta, .lp-footer-top > *, .lp-footer-wordmark')
+        .forEach(element => observer?.observe(element))
+    }
+    const onFocus = () => {
+      animations.forEach(animation => {
+        const target = (animation.effect as KeyframeEffect | null)?.target
+        if (target instanceof Element && target.contains(document.activeElement)) {
+          animation.cancel()
+          animations.delete(animation)
+        }
+      })
+    }
+    start()
+    preference.addEventListener('change', start)
+    page.addEventListener('focusin', onFocus)
+    return () => {
+      stop()
+      preference.removeEventListener('change', start)
+      page.removeEventListener('focusin', onFocus)
+    }
+  }, [settings.reducedMotion])
+
   return (
-    <div className={`landing-screen screen ${activeLayout === 'phone' ? 'lp-phone' : ''}`}>
+    <div ref={pageRef} className={`landing-screen screen ${activeLayout === 'phone' ? 'lp-phone' : ''}`}>
       <div className="screen-scroll lp-scroll">
         <a className="lp-skip" href="#lp-main">Skip to main content</a>
         <header className="lp-nav lp-container">
@@ -86,3 +150,4 @@ export default function LandingPage({ onSignUp, onLogin }: Props) {
     </div>
   )
 }
+import { useEffect, useRef } from 'react'

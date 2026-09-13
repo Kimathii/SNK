@@ -76,3 +76,28 @@
   color: rgba(255,255,255,0.6);
   font-weight: 600;
 }
+
+.congrats-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: congrats-blink 5.5s ease-in-out infinite;
+}
+.congrats-smile {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: congrats-smile 5.5s ease-in-out infinite;
+}
+@keyframes congrats-blink {
+  0%, 38%, 44%, 100% { transform: scaleY(1); }
+  41% { transform: scaleY(.08); }
+}
+@keyframes congrats-smile {
+  0%, 20%, 75%, 100% { transform: scale(1); }
+  42%, 52% { transform: scale(1.08, 1.25); }
+}
+[data-motion="reduced"] .congrats-eye,
+[data-motion="reduced"] .congrats-smile { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .congrats-eye, .congrats-smile { animation: none; }
+  .congrats-content { transition: none; }
+}

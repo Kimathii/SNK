@@ -90,10 +90,10 @@ export default function StruggleScreen({ onSelect, onBack }: Props) {
 
   return (
     <div className="struggle-screen screen">
+      <button type="button" className="struggle-back" onClick={onBack}>
+        <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" /> Back to signup
+      </button>
       <div className="struggle-content">
-        <button type="button" className="struggle-back" onClick={onBack}>
-          <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" /> Back to signup
-        </button>
         <h1 className="struggle-title">WHAT BEST DESCRIBE YOUR CHILD'S STRUGGLE</h1>
         <p className="struggle-hint">SELECT BUTTONS BELOW</p>
 

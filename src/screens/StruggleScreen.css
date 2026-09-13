@@ -175,6 +175,10 @@
 
 
 .struggle-back {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 30;
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
@@ -184,10 +188,11 @@
   margin-bottom: 8px;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 30px;
-  background: rgba(0, 0, 0, 0.12);
+  background: #393fae;
   color: white;
   font-size: 0.9rem;
   font-weight: 800;
 }
-.struggle-back:hover { background: rgba(0, 0, 0, 0.24); }
+.struggle-back:hover { background: #303697; }
 .struggle-back:focus-visible { outline: 3px solid #F5C518; outline-offset: 3px; }
+.struggle-content { padding-top: max(88px, calc(env(safe-area-inset-top) + 72px)); }
