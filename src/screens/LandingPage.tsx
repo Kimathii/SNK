@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowUp, faArrowUpRightFromSquare, faCheck, faFont, faGamepad, faHeart, faPlus, faSliders, faStar, faWater } from '@fortawesome/free-solid-svg-icons'
 import SpeakButton from '../components/SpeakButton'
+import LetterCatch from '../components/LetterCatch'
 import { useAccessibility } from '../context/AccessibilityContext'
 import './LandingPage.css'
 
@@ -119,6 +120,7 @@ export default function LandingPage({ onSignUp, onLogin }: Props) {
               <button onClick={openModal}>All settings <span aria-hidden="true"><FontAwesomeIcon icon={faSliders} aria-hidden="true" /></span></button>
             </div>
           </section>
+          <LetterCatch />
           <section className="lp-section lp-container" id="lp-how" aria-labelledby="lp-how-title">
             <div className="lp-section-heading"><div><p className="lp-eyebrow">Small steps, every day</p><h2 id="lp-how-title">A simple place to begin.</h2></div><p>No rush. No race.<br />Just a little room to try.</p></div>
             <div className="lp-steps">{steps.map(step => <article key={step.number} className="lp-step"><span className="lp-step-number">{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div>

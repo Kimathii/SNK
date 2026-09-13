@@ -1,0 +1,79 @@
+.lc-game { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); max-width: 1200px; border: 1px solid var(--lp-line); border-radius: 24px; overflow: hidden; background: var(--lp-panel); }
+.lc-guide { padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 22px; }
+.lc-guide h3 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.3; }
+.lc-guide p { max-width: 36ch; color: var(--lp-muted); }
+.lc-guide .lc-keyboard { font-size: .85rem; }
+.lc-stars { display: flex; align-items: center; gap: 10px; color: #77849a; font-size: 1.4rem; }
+.lc-stars .lc-star-earned { color: #f5d663; }
+.lc-progress { color: var(--lp-muted); font-size: .85rem; margin-left: 8px; }
+.lc-primary { padding: 13px 22px; min-height: 48px; border-radius: 28px; background: var(--lp-green); color: #0b3020; font-weight: 800 !important; display: flex; align-items: center; gap: 20px; }
+.lc-playground { background: #192e44; min-width: 0; padding: 24px; }
+.lc-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 800; }
+.lc-sky { height: 250px; display: flex; gap: 16px; padding: 18px 12px; border-bottom: 1px dashed #536b81; margin-bottom: 22px; }
+.lc-lane { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: flex-start; }
+.lc-letter { width: 76px; height: 76px; flex-shrink: 0; border: 2px solid #a1ebc2; border-radius: 22px; background: #b7f1cf; color: #153e2d; box-shadow: 0 6px 0 #42745e; font-size: 2.5rem !important; font-weight: 700 !important; }
+.lc-letter-1 { background: #f5d663; border-color: #ffe793; color: #473b12; box-shadow: 0 6px 0 #8e7b3f; }
+.lc-letter-2 { background: #c7bff6; border-color: #e0d9ff; color: #352b60; box-shadow: 0 6px 0 #75679d; }
+.lc-letter:hover { filter: brightness(1.08); }
+.lc-intro, .lc-celebration { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; text-align: center; color: var(--lp-muted); }
+.lc-intro > svg, .lc-celebration > svg { font-size: 2.6rem; color: var(--lp-green); }
+.lc-celebration > span { font-size: 2.6rem; font-weight: 800; letter-spacing: .12em; color: #f5d663; }
+.lc-basket { display: flex; justify-content: center; gap: 14px; }
+.lc-slot { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 14px; border: 2px solid #75859c; font-size: 1.9rem; color: #cad4e2; }
+.lc-slot-target { border: 3px dashed #f5d663; color: #f5d663; }
+.lc-slot-caught { background: #b7f1cf; color: #153e2d; border-color: #b7f1cf; }
+.lc-slot > svg { position: absolute; right: 4px; bottom: 4px; font-size: .65rem; }
+.lc-feedback { min-height: 3.4em; margin-top: 20px; text-align: center; font-size: .95rem; color: #dbe6f3; }
+.lc-next { margin: 0 auto 16px; }
+.lc-celebration { position: relative; }
+.lc-sparkles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.lc-sparkles > span { position: absolute; top: 12%; color: #f5d663; font-size: 1rem; opacity: 0; }
+.lc-sparkles > span:nth-child(3n) { color: #b7f1cf; }
+.lc-sparkles > span:nth-child(3n + 1) { color: #c7bff6; }
+.lc-slot-caught::after { content: ''; position: absolute; inset: -5px; border: 2px solid #b7f1cf; border-radius: inherit; opacity: 0; pointer-events: none; }
+.lc-controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: #c2cede; font-size: .8rem; }
+.lc-controls button { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; color: inherit; background: transparent; border: 1px solid #75859c; border-radius: 24px; }
+[data-theme="calm"] .lc-playground { background: #293c45; }
+@keyframes lc-float { from { transform: translateY(0); } to { transform: translateY(118px); } }
+@keyframes lc-catch-pop {
+  0% { transform: translateY(-12px) scale(.85); }
+  55% { transform: translateY(2px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes lc-catch-ring { from { opacity: .8; transform: scale(.9); } to { opacity: 0; transform: scale(1.35); } }
+@keyframes lc-star-pop {
+  0% { transform: scale(.6) rotate(-20deg); }
+  60% { transform: scale(1.35) rotate(12deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes lc-sparkle-fall {
+  0% { opacity: 0; transform: translateY(-18px) rotate(0) scale(.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(160px) rotate(150deg) scale(.8); }
+}
+@keyframes lc-word-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lc-hand-invite { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(-8deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .lc-game[data-effects="true"] .lc-intro > svg { animation: lc-hand-invite 1.4s ease-in-out 2; }
+  .lc-game[data-effects="true"] .lc-slot-caught { animation: lc-catch-pop .45s ease-out; }
+  .lc-game[data-effects="true"] .lc-slot-caught::after { animation: lc-catch-ring .6s ease-out; }
+  .lc-game[data-effects="true"] .lc-star-earned { animation: lc-star-pop .65s ease-out; }
+  .lc-game[data-effects="true"] .lc-celebration > svg { animation: lc-star-pop .6s ease-out; }
+  .lc-game[data-effects="true"] .lc-celebration > span { animation: lc-word-arrive .5s ease-out; }
+  .lc-game[data-effects="true"] .lc-sparkles > span { animation: lc-sparkle-fall 1.3s ease-out both; }
+  .lc-playground[data-moving="true"] .lc-letter { animation: lc-float 4s ease-in-out infinite alternate; }
+  .lc-playground[data-moving="true"] .lc-letter-1 { animation-delay: -2s; }
+  .lc-playground[data-moving="true"] .lc-letter-2 { animation-delay: -4s; }
+  .lc-playground:has(:focus-visible) .lc-letter { animation-play-state: paused !important; }
+}
+[data-motion="reduced"] .lc-game * { animation: none !important; }
+@media (max-width: 800px) {
+  .lc-game { grid-template-columns: minmax(0, 1fr); }
+  .lc-guide { gap: 16px; }
+}
+@media (max-width: 480px) {
+  .lc-playground { padding: 20px 16px; }
+  .lc-sky { padding-inline: 0; gap: 12px; height: 235px; }
+  .lc-letter { width: 58px; height: 64px; border-radius: 18px; font-size: 2rem !important; }
+  .lc-slot { width: 56px; height: 56px; }
+}
