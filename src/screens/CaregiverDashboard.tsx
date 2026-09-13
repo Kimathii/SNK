@@ -45,7 +45,7 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
           </div>
           <div className="cg-header-text">
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span className="cg-greeting">HEY, Sandra</span>
+              <span className="cg-greeting">HEY, Mike</span>
               <SpeakButton text="Hey Sandra! You have 2 new milestone updates for Samuel." size="sm" />
             </div>
             <span className="cg-role">Caregiver</span>
