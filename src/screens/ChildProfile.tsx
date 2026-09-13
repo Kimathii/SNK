@@ -134,6 +134,7 @@ export default function ChildProfile({ childId, onBack }: Props) {
         onBack={onBack}
         speechText={`This is ${child.name}'s profile. Age ${child.age}, ${child.condition}. Therapist is ${child.therapist}.`}
       />
+      <div className="screen-scroll">
       {/* Hero header */}
       <div className="cp-hero" style={{ background: child.avatarBg }}>
         <button className="cp-back" onClick={onBack}>← Back</button>
@@ -181,7 +182,7 @@ export default function ChildProfile({ childId, onBack }: Props) {
       </div>
 
       {/* Tab content */}
-      <div className="screen-scroll cp-body">
+      <div className="cp-body">
 
         {activeTab === 'overview' && (
           <div className="cp-tab-content">
@@ -301,6 +302,7 @@ export default function ChildProfile({ childId, onBack }: Props) {
         )}
 
         <div style={{ height: 24 }} />
+      </div>
       </div>
     </div>
   )

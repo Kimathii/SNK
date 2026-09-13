@@ -48,6 +48,7 @@ interface AccessibilityContextType {
   closeModal: () => void
   toggleModal: () => void
   activeLayout: 'phone' | 'desktop'
+  canUseDesktopLayout: boolean
 }
 
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined)
@@ -135,9 +136,10 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   const closeModal = () => setIsModalOpen(false)
   const toggleModal = () => setIsModalOpen((prev) => !prev)
 
-  // Compute active layout
+  // Keep navigation usable on small screens, including saved desktop preferences.
+  const canUseDesktopLayout = windowWidth >= 768
   const activeLayout: 'phone' | 'desktop' =
-    settings.layoutMode === 'phone'
+    !canUseDesktopLayout || settings.layoutMode === 'phone'
       ? 'phone'
       : settings.layoutMode === 'desktop'
       ? 'desktop'
@@ -156,6 +158,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
         closeModal,
         toggleModal,
         activeLayout,
+        canUseDesktopLayout,
       }}
     >
       {children}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { AccessibilityProvider, useAccessibility } from './context/AccessibilityContext'
 import AccessibilityModal from './components/AccessibilityModal'
 import DesktopSidebar from './components/DesktopSidebar'
+import BottomNav from './components/BottomNav'
 import LandingPage from './screens/LandingPage'
 import SplashScreen from './screens/SplashScreen'
 import SignUpScreen from './screens/SignUpScreen'
@@ -233,7 +234,7 @@ function MainApp() {
             onNavigate={(dest) => navigate(dest as Screen)}
             onToggleRole={handleToggleRole}
           />
-          <main className="desktop-main-content">
+          <main className="desktop-main-content dashboard-main-content">
             <div className="desktop-content-body">
               <div className="desktop-content-inner">{renderActiveScreen()}</div>
             </div>
@@ -274,7 +275,15 @@ function MainApp() {
           </div>
         </div>
       ) : (
-        <div className="phone-shell">{renderActiveScreen()}</div>
+        <div className="phone-shell">
+          {renderActiveScreen()}
+          {!isAuthScreen && !isGameActive && (
+            <BottomNav
+              active={currentScreen === 'games' ? 'games' : currentScreen === 'family' || currentScreen === 'child-profile' ? 'family' : 'home'}
+              onNavigate={(item) => navigate(item === 'home' ? homeScreen : item)}
+            />
+          )}
+        </div>
       )}
 
       {/* Global Accessibility & Sensory Settings Drawer */}

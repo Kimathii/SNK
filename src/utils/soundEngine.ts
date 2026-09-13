@@ -7,6 +7,7 @@ class SoundEngine {
   private speechRate = 0.9
   private speechPitch = 1.05
   private sfxVolume = 0.7
+  private lastHoverAt = -Infinity
 
   private getContext(): AudioContext | null {
     if (typeof window === 'undefined') return null
@@ -26,6 +27,38 @@ class SoundEngine {
 
   public setSfxEnabled(val: boolean) {
     this.sfxEnabled = val
+  }
+
+  // Browsers allow audio after a click or key press, rather than hover alone.
+  public unlock() {
+    if (this.sfxEnabled) this.getContext()
+  }
+
+  public playHover() {
+    if (!this.sfxEnabled || this.sfxVolume === 0) return
+    const ctx = this.getContext()
+    // Never queue hover sounds while waiting for browser audio permission.
+    if (!ctx || ctx.state !== 'running') return
+    const now = ctx.currentTime
+    if (now - this.lastHoverAt < 0.1) return
+    this.lastHoverAt = now
+
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.type = 'sine'
+    osc.frequency.setValueAtTime(520, now)
+    osc.frequency.exponentialRampToValueAtTime(680, now + 0.06)
+    gain.gain.setValueAtTime(0, now)
+    gain.gain.linearRampToValueAtTime(0.06 * this.sfxVolume, now + 0.01)
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08)
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.onended = () => {
+      osc.disconnect()
+      gain.disconnect()
+    }
+    osc.start(now)
+    osc.stop(now + 0.09)
   }
 
   public setSfxVolume(val: number) {

@@ -15,14 +15,16 @@ export default function BottomNav({ active, onNavigate }: Props) {
   ]
 
   return (
-    <div className="bottom-nav">
+    <nav className="bottom-nav" aria-label="Main navigation">
       <div className="bottom-nav__pill">
         {items.map((item) => (
           <button
             key={item.id}
+            type="button"
             className={`bottom-nav__item ${active === item.id ? 'bottom-nav__item--active' : ''}`}
             onClick={() => onNavigate(item.id)}
             aria-label={item.label}
+            aria-current={active === item.id ? 'page' : undefined}
           >
             <span className="bottom-nav__icon">{item.icon}</span>
           </button>
@@ -30,6 +32,6 @@ export default function BottomNav({ active, onNavigate }: Props) {
       </div>
       {/* Home indicator bar */}
       <div className="bottom-nav__bar" />
-    </div>
+    </nav>
   )
 }

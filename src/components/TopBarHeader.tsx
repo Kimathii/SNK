@@ -20,7 +20,7 @@ export default function TopBarHeader({
   rightElement,
   className = '',
 }: Props) {
-  const { toggleModal, activeLayout, updateSetting } = useAccessibility()
+  const { toggleModal, activeLayout, canUseDesktopLayout, updateSetting } = useAccessibility()
 
   const handleToggleLayout = () => {
     updateSetting('layoutMode', activeLayout === 'phone' ? 'desktop' : 'phone')
@@ -51,8 +51,10 @@ export default function TopBarHeader({
           type="button"
           className="topbar-btn topbar-layout-btn"
           onClick={handleToggleLayout}
-          title={`Switch to ${activeLayout === 'phone' ? 'Desktop Web' : 'Phone Shell'} layout`}
+          title={canUseDesktopLayout ? `Switch to ${activeLayout === 'phone' ? 'desktop' : 'mobile'} layout` : 'Desktop layout is available on wider screens'}
           aria-label={`Switch layout mode`}
+          aria-pressed={activeLayout === 'phone'}
+          disabled={!canUseDesktopLayout}
         >
           {activeLayout === 'phone' ? '💻' : '📱'}
         </button>

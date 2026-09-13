@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useAccessibility } from '../context/AccessibilityContext'
+import { soundEngine } from '../utils/soundEngine'
 import './DesktopSidebar.css'
 
 interface Props {
@@ -15,6 +17,23 @@ export default function DesktopSidebar({
   onToggleRole,
 }: Props) {
   const { toggleModal, updateSetting } = useAccessibility()
+
+  useEffect(() => {
+    const unlockAudio = () => soundEngine.unlock()
+    window.addEventListener('pointerdown', unlockAudio)
+    window.addEventListener('keydown', unlockAudio)
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio)
+      window.removeEventListener('keydown', unlockAudio)
+    }
+  }, [])
+
+  const hoverSound = {
+    onMouseEnter: () => soundEngine.playHover(),
+    onFocus: (event: React.FocusEvent<HTMLElement>) => {
+      if (event.target.matches(':focus-visible')) soundEngine.playHover()
+    },
+  }
 
   const navItems = [
     {
@@ -73,6 +92,7 @@ export default function DesktopSidebar({
               activeScreen === item.id ? 'sidebar-nav-link--active' : ''
             }`}
             onClick={() => onNavigate(item.id)}
+            {...hoverSound}
           >
             <span className="sidebar-nav-icon">{item.icon}</span>
             <span className="sidebar-nav-text">{item.label}</span>
@@ -81,7 +101,7 @@ export default function DesktopSidebar({
       </nav>
 
       {/* Quick Access Game */}
-      <div className="sidebar-game-card" onClick={() => onNavigate('wordsplash')}>
+      <div className="sidebar-game-card" onClick={() => onNavigate('wordsplash')} {...hoverSound}>
         <div className="sidebar-game-icon">💦</div>
         <div className="sidebar-game-info">
           <span className="sidebar-game-title">Play WordSplash</span>
@@ -96,6 +116,7 @@ export default function DesktopSidebar({
           type="button"
           className="sidebar-action-btn sidebar-role-btn"
           onClick={onToggleRole}
+          {...hoverSound}
         >
           🔄 Switch to {userRole === 'student' ? 'Caregiver' : 'Student'}
         </button>
@@ -104,6 +125,7 @@ export default function DesktopSidebar({
           type="button"
           className="sidebar-action-btn sidebar-a11y-btn"
           onClick={toggleModal}
+          {...hoverSound}
         >
           ♿ Sensory & Accessibility
         </button>
@@ -112,6 +134,7 @@ export default function DesktopSidebar({
           type="button"
           className="sidebar-action-btn sidebar-layout-btn"
           onClick={() => updateSetting('layoutMode', 'phone')}
+          {...hoverSound}
         >
           📱 Switch to Mobile View
         </button>

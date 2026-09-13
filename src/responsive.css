@@ -81,3 +81,38 @@
 
 /* Auth pages own scrolling in every layout, including short desktop windows. */
 .app-wrapper > .auth-screen { height: 100dvh; min-height: 0; }
+
+/* Dashboards fill the workspace; only their content scrolls below the header. */
+.dashboard-main-content .desktop-content-body { overflow: hidden; }
+.dashboard-main-content .desktop-content-inner { max-width: none; height: 100%; }
+:is(.student-screen, .caregiver-screen) > .topbar-header { width: 100%; }
+:is(.student-screen, .caregiver-screen) > .screen-scroll { overscroll-behavior-y: contain; }
+.cg-grid-col-main, .cg-grid-col-side, .st-header-text { min-width: 0; }
+
+/* Use the same gutters for the dashboard heading, banners, and game cards. */
+@container (min-width: 768px) {
+  .student-screen > .topbar-header { padding-inline: 32px; }
+  .student-screen .st-section-title { padding-inline: 0; }
+}
+@container (min-width: 1000px) {
+  .caregiver-screen > .topbar-header { padding-inline: 36px; }
+}
+
+/* Keep cards comfortably sized across every dashboard destination. */
+:is(.games-screen, .family-screen, .cp-screen) > .topbar-header { width: 100%; }
+.gm-featured-list, .gm-grid, .fm-children-list, .cg-grid-layout { width: 100%; }
+.cg-grid-layout { max-width: 720px; }
+.gm-featured-card, .gm-card, .fm-child-card { min-width: 0; }
+@container (min-width: 768px) {
+  :is(.games-screen, .family-screen, .cp-screen) > .topbar-header { padding-inline: 32px; }
+  .gm-featured-list, .gm-therapy-banner { width: 100%; max-width: 760px; align-self: flex-start; }
+  .gm-grid { max-width: 1100px; align-self: flex-start; }
+  .fm-children-list { max-width: 1000px; align-self: flex-start; }
+  .gm-header { padding-inline: 0; }
+  .gm-section-title { padding-inline: 0; }
+  .cp-tab-content { max-width: 1000px; }
+  .cp-tabs { width: calc(100% - 64px); max-width: 1000px; margin-inline: 32px; }
+}
+@container (min-width: 1000px) {
+  .cg-grid-layout { max-width: 1100px; }
+}

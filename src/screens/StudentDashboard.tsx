@@ -1,8 +1,5 @@
-import { useState } from 'react'
-import BottomNav from '../components/BottomNav'
 import TopBarHeader from '../components/TopBarHeader'
 import SpeakButton from '../components/SpeakButton'
-import { useAccessibility } from '../context/AccessibilityContext'
 import './StudentDashboard.css'
 
 interface Props {
@@ -35,8 +32,6 @@ const frequentGames = [
 ]
 
 export default function StudentDashboard({ onNavigate }: Props) {
-  const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
-  const { activeLayout } = useAccessibility()
 
   return (
     <div className="student-screen screen">
@@ -175,16 +170,7 @@ export default function StudentDashboard({ onNavigate }: Props) {
         </div>
       </div>
 
-      {activeLayout === 'phone' && (
-        <BottomNav
-          active={activeNav}
-          onNavigate={(n) => {
-            setActiveNav(n)
-            if (n === 'games') onNavigate('games')
-            else if (n === 'family') onNavigate('caregiver')
-          }}
-        />
-      )}
+
     </div>
   )
 }
