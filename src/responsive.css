@@ -9,15 +9,14 @@
 .app-wrapper { min-height: 100dvh; }
 .app-wrapper--desktop, .desktop-main-content, .desktop-sidebar { height: 100dvh; }
 .desktop-main-content, .desktop-content-body, .screen-scroll, .struggle-content { min-width: 0; min-height: 0; }
-.screen-scroll { width: 100%; overscroll-behavior-y: contain; }
+.screen-scroll { width: 100%; }
+/* Desktop pages scroll in .desktop-content-body; allow wheel/touch chaining. */
+.phone-shell .screen-scroll { overscroll-behavior-y: contain; }
 .phone-shell > .screen, .phone-shell > .wordsplash-app { flex: 1; min-height: 0; }
 .topbar-header, .bottom-nav, .ws-arena-header, .wm-header, .ls-header { flex-shrink: 0; }
 .topbar-header { padding-top: max(10px, env(safe-area-inset-top)); }
 .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
-.signup-screen, .splash-screen, .congrats-screen { overflow-y: auto; }
-.signup-hero, .signup-body { flex-shrink: 0; }
-.signup-body { width: 100%; }
-.signup-input { font-size: 16px; }
+.splash-screen, .congrats-screen { overflow-y: auto; }
 .a11y-modal { max-height: calc(100dvh - 32px); }
 .a11y-header, .a11y-footer { flex-shrink: 0; }
 .a11y-body { min-height: 0; }
@@ -44,7 +43,6 @@
   .topbar-right { gap: 6px; }
   .gm-featured-list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
   .gm-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
-  .signup-screen { min-height: 0; border-radius: 0; }
   .struggle-screen { min-height: 0; border-radius: 0; }
   .landing-screen.lp-phone .lp-section { padding-top: 52px; }
   .landing-screen.lp-phone .lp-final-wrap { padding-block: 52px; }
@@ -58,12 +56,9 @@
   .lp-phone .lp-hero-photo::before { background: linear-gradient(180deg, transparent 180px, var(--lp-bg) 410px); }
   .lp-phone .lp-hero-photo h1 { font-size: 3rem; }
   .lp-phone .lp-footer-wordmark { font-size: 24vw; }
-  .signup-body { padding-inline: 28px; }
 }
 
 @media (max-width: 599px) {
-  .signup-hero { min-height: 190px; height: 25dvh; }
-  .signup-body { padding-inline: 20px; }
   .lp-footer nav :is(a, button) { overflow-wrap: anywhere; }
   .a11y-overlay { padding: 8px; }
   .a11y-modal { max-height: calc(100dvh - 16px); border-radius: 18px; }
@@ -76,10 +71,6 @@
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-  .signup-screen { flex-direction: row; }
-  .signup-hero { width: 35%; min-height: 400px; height: auto; align-items: center; border-radius: 0; }
-  .signup-mascot { max-width: 130px; margin: 0; }
-  .signup-body { width: 65%; padding: 24px; }
   .a11y-overlay { padding-block: 8px; }
   .a11y-modal { max-height: calc(100dvh - 16px); }
 }
@@ -87,3 +78,6 @@
 /* Keep role controls available whenever the sidebar is absent. */
 .app-wrapper--phone .cg-switch-row,
 .app-wrapper--phone .st-switch-row { display: flex; }
+
+/* Auth pages own scrolling in every layout, including short desktop windows. */
+.app-wrapper > .auth-screen { height: 100dvh; min-height: 0; }

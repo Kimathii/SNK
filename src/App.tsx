@@ -18,6 +18,7 @@ export type Screen =
   | 'landing'
   | 'splash'
   | 'signup'
+  | 'login'
   | 'struggle'
   | 'congratulations'
   | 'caregiver'
@@ -66,6 +67,7 @@ function MainApp() {
     'landing',
     'splash',
     'signup',
+    'login',
     'struggle',
     'congratulations',
   ].includes(currentScreen)
@@ -80,7 +82,7 @@ function MainApp() {
         {currentScreen === 'landing' && (
           <LandingPage
             onSignUp={() => navigate('splash')}
-            onLogin={() => navigate('signup')}
+            onLogin={() => navigate('login')}
           />
         )}
 
@@ -88,17 +90,22 @@ function MainApp() {
           <SplashScreen onNext={() => navigate('signup')} />
         )}
 
-        {currentScreen === 'signup' && (
+        {(currentScreen === 'signup' || currentScreen === 'login') && (
           <SignUpScreen
+            key={currentScreen}
+            mode={currentScreen}
+            onBack={() => navigate('landing')}
+            onModeChange={() => navigate(currentScreen === 'signup' ? 'login' : 'signup')}
             onContinue={(role: UserRole) => {
               setAppState((s) => ({ ...s, userRole: role }))
-              navigate('struggle')
+              navigate(currentScreen === 'login' ? (role === 'student' ? 'student' : 'caregiver') : 'struggle')
             }}
           />
         )}
 
         {currentScreen === 'struggle' && (
           <StruggleScreen
+            onBack={() => navigate('signup')}
             onSelect={(struggle: string) => {
               setAppState((s) => ({ ...s, selectedStruggle: struggle }))
               navigate('congratulations')
@@ -181,6 +188,8 @@ function MainApp() {
             </div>
           </main>
         </div>
+      ) : currentScreen === 'signup' || currentScreen === 'login' ? (
+        renderActiveScreen()
       ) : isDesktop && !isGameActive ? (
         <div
           className="desktop-main-content"

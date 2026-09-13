@@ -1,95 +1,87 @@
-import { useState } from 'react'
-import type { UserRole } from '../App'
+import { useState, type FormEvent } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight, faCheck, faEye, faEyeSlash, faGraduationCap, faSliders } from '@fortawesome/free-solid-svg-icons'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './SignUpScreen.css'
 
+type Role = 'student' | 'caregiver'
 interface Props {
-  onContinue: (role: UserRole) => void
+  mode: 'signup' | 'login'
+  onContinue: (role: Role) => void
+  onModeChange: () => void
+  onBack: () => void
 }
 
-export default function SignUpScreen({ onContinue }: Props) {
-  const [email, setEmail] = useState('')
-  const [role, setRole] = useState<UserRole>(null)
-
-  const handleSubmit = () => {
-    if (email.trim()) {
-      onContinue(role ?? 'caregiver')
-    }
+export default function SignUpScreen({ mode, onContinue, onModeChange, onBack }: Props) {
+  const [role, setRole] = useState<Role>('student')
+  const [showPassword, setShowPassword] = useState(false)
+  const { openModal } = useAccessibility()
+  const isSignup = mode === 'signup'
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    onContinue(role)
   }
 
   return (
-    <div className="signup-screen screen">
-      {/* Green top section with mascot */}
-      <div className="signup-hero">
-        <div className="signup-mascot">
-          {/* Calm plant-head mascot SVG */}
-          <svg viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Leaves on head */}
-            <ellipse cx="80" cy="28" rx="16" ry="22" fill="white" transform="rotate(-15 80 28)" />
-            <ellipse cx="80" cy="28" rx="16" ry="22" fill="white" transform="rotate(15 80 28)" />
-            <ellipse cx="80" cy="20" rx="14" ry="20" fill="white" />
-            <ellipse cx="55" cy="35" rx="12" ry="18" fill="white" transform="rotate(-30 55 35)" />
-            <ellipse cx="105" cy="35" rx="12" ry="18" fill="white" transform="rotate(30 105 35)" />
-
-            {/* Body */}
-            <ellipse cx="80" cy="120" rx="60" ry="65" fill="white" />
-
-            {/* Face */}
-            {/* Left eye */}
-            <path d="M58 108 Q64 103 70 108" stroke="#5D4037" strokeWidth="4" strokeLinecap="round" fill="none" />
-            {/* Right eye */}
-            <path d="M90 108 Q96 103 102 108" stroke="#5D4037" strokeWidth="4" strokeLinecap="round" fill="none" />
-            {/* Smile */}
-            <path d="M62 125 Q80 140 98 125" stroke="#5D4037" strokeWidth="4" strokeLinecap="round" fill="none" />
-          </svg>
-        </div>
-      </div>
-
-      {/* White bottom section */}
-      <div className="signup-body">
-        <h1 className="signup-title">SIGN UP</h1>
-
-        <input
-          className="signup-input"
-          type="email"
-          placeholder="ENTER EMAIL"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <div className="signup-oauth">
-          <button
-            className={`oauth-btn ${role === 'caregiver' ? 'oauth-btn--active' : ''}`}
-            onClick={() => setRole('caregiver')}
-            title="Sign up as Caregiver (Google)"
-          >
-            G
+    <div className="auth-screen screen">
+      <header className="auth-nav">
+        <button type="button" onClick={onBack} aria-label="Back to landing page"><FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" /> Back to home</button>
+        <button onClick={openModal} aria-label="Accessibility settings"><FontAwesomeIcon icon={faSliders} /></button>
+      </header>
+      <main className="auth-card">
+        <section className="auth-welcome" aria-labelledby="auth-welcome-title">
+          <button type="button" className="auth-wordmark" onClick={onBack} aria-label="SNK — back to landing page">
+            <span aria-hidden="true" className="auth-logo-letters"><span>S</span><span>N</span><span>K</span></span>
           </button>
-          <button
-            className={`oauth-btn ${role === 'student' ? 'oauth-btn--active' : ''}`}
-            onClick={() => setRole('student')}
-            title="Sign up as Student (Facebook)"
-          >
-            F
-          </button>
-        </div>
-
-        <p className="signup-hint">Tap G for Caregiver · F for Student</p>
-
-        <button
-          className={`signup-cta ${email.trim() ? 'signup-cta--active' : ''}`}
-          onClick={handleSubmit}
-          disabled={!email.trim()}
-        >
-          Continue
-        </button>
-
-        <div className="signup-login">
-          <p>ALREADY HAVE AN ACCOUNT</p>
-          <button className="signup-login-link" onClick={() => onContinue('caregiver')}>
-            LOGIN
-          </button>
-        </div>
-      </div>
+          <div className="auth-mascot" aria-hidden="true">
+            <svg viewBox="0 0 180 215" fill="none">
+              <g className="auth-leaves">
+                <ellipse cx="90" cy="35" rx="17" ry="30" fill="white" />
+                <ellipse cx="64" cy="45" rx="16" ry="23" fill="white" transform="rotate(-25 64 45)" />
+                <ellipse cx="116" cy="45" rx="16" ry="23" fill="white" transform="rotate(25 116 45)" />
+              </g>
+              <ellipse cx="90" cy="140" rx="67" ry="72" fill="white" />
+              <g className="auth-face" stroke="#62483E" strokeWidth="5" strokeLinecap="round">
+                <path d="M66 133 Q73 126 80 133 M101 133 Q108 126 115 133" />
+                <path d="M70 154 Q90 173 112 153" />
+              </g>
+            </svg>
+          </div>
+          <h2 id="auth-welcome-title">A little support.<br />A world of possibility.</h2>
+          <p>One small step toward a learning journey that feels right.</p>
+        </section>
+        <section className="auth-form-panel" aria-labelledby="auth-title">
+          <p className="auth-eyebrow">{isSignup ? 'Let’s get to know you' : 'Your next little win awaits'}</p>
+          <h1 id="auth-title">{isSignup ? 'Create your account' : 'Welcome back'}</h1>
+          <p className="auth-subtitle">{isSignup ? 'A fresh start, at your own pace.' : 'Choose your space and continue your journey.'}</p>
+          <form onSubmit={submit} className="auth-form">
+            <fieldset className="auth-roles">
+              <legend>{isSignup ? 'I’m signing up as a' : 'I’m logging in as a'}</legend>
+              <div className="auth-role-options">
+                <button type="button" className={`auth-role ${role === 'student' ? 'auth-role--selected' : ''}`} aria-pressed={role === 'student'} onClick={() => setRole('student')}>
+                  <span className="auth-role-icon"><FontAwesomeIcon icon={faGraduationCap} /></span><span>Student</span>{role === 'student' && <FontAwesomeIcon className="auth-role-check" icon={faCheck} />}
+                </button>
+                <button type="button" className={`auth-role ${role === 'caregiver' ? 'auth-role--selected' : ''}`} aria-pressed={role === 'caregiver'} onClick={() => setRole('caregiver')}>
+                  <span className="auth-role-icon auth-role-g" aria-hidden="true">G</span><span>Caregiver</span>{role === 'caregiver' && <FontAwesomeIcon className="auth-role-check" icon={faCheck} />}
+                </button>
+              </div>
+              <p className="auth-role-hint" aria-live="polite">{role === 'student' ? 'Your own space to learn and play.' : 'A space to support your child’s learning.'}</p>
+            </fieldset>
+            {isSignup && <label className="auth-field">Your name<input name="name" autoComplete="name" placeholder="Enter your name" required maxLength={100} /></label>}
+            <label className="auth-field">Email address<input name="email" type="email" autoComplete="email" inputMode="email" placeholder="you@example.com" required /></label>
+            <label className="auth-field" htmlFor="auth-password">Password</label>
+            <div className="auth-password-wrap">
+              <input id="auth-password" name="password" type={showPassword ? 'text' : 'password'} autoComplete={isSignup ? 'new-password' : 'current-password'} minLength={isSignup ? 8 : undefined} placeholder={isSignup ? 'At least 8 characters' : 'Enter your password'} required aria-describedby={isSignup ? 'auth-password-help' : undefined} />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Hide password' : 'Show password'} aria-pressed={showPassword}><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} /></button>
+            </div>
+            {isSignup && <p id="auth-password-help" className="auth-field-help">Use at least 8 characters.</p>}
+            <button className="auth-submit" type="submit">{isSignup ? 'Continue' : 'Log in'} as {role === 'student' ? 'Student' : 'Caregiver'}<FontAwesomeIcon icon={faArrowRight} /></button>
+            <p className="auth-demo-note">Demo preview. Account creation and password sign-in are not connected yet. Please use sample details.</p>
+          </form>
+          <p className="auth-switch">{isSignup ? 'Already have an account?' : 'New to SNK?'} <button onClick={onModeChange}>{isSignup ? 'Log in' : 'Sign up'}</button></p>
+        </section>
+      </main>
+      <p className="auth-bottom-note">Every mind belongs.</p>
     </div>
   )
 }

@@ -173,3 +173,21 @@
   }
 }
 
+
+.struggle-back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.12);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.struggle-back:hover { background: rgba(0, 0, 0, 0.24); }
+.struggle-back:focus-visible { outline: 3px solid #F5C518; outline-offset: 3px; }

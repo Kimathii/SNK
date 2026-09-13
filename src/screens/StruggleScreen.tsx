@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './StruggleScreen.css'
 
 interface Props {
   onSelect: (struggle: string) => void
+  onBack: () => void
 }
 
 const STRUGGLES = [
@@ -20,13 +24,76 @@ const STRUGGLES = [
   },
 ]
 
-export default function StruggleScreen({ onSelect }: Props) {
+export default function StruggleScreen({ onSelect, onBack }: Props) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showInfo, setShowInfo] = useState(false)
+  const mascotRef = useRef<SVGSVGElement>(null)
+  const leftPupilRef = useRef<SVGGElement>(null)
+  const rightPupilRef = useRef<SVGGElement>(null)
+  const { settings } = useAccessibility()
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let frame = 0
+    let pointer: { x: number; y: number } | null = null
+
+    const reset = () => {
+      cancelAnimationFrame(frame)
+      frame = 0
+      pointer = null
+      leftPupilRef.current?.removeAttribute('transform')
+      rightPupilRef.current?.removeAttribute('transform')
+    }
+    const draw = () => {
+      frame = 0
+      const svg = mascotRef.current
+      const matrix = svg?.getScreenCTM()
+      if (!svg || !matrix || !pointer) return
+      // Convert viewport coordinates to the SVG's coordinates at any screen size.
+      const point = svg.createSVGPoint()
+      point.x = pointer.x
+      point.y = pointer.y
+      const local = point.matrixTransform(matrix.inverse())
+      for (const [ref, centerX] of [[leftPupilRef, 55], [rightPupilRef, 85]] as const) {
+        const dx = local.x - centerX
+        const dy = local.y - 100
+        const distance = Math.hypot(dx, dy)
+        // A 5-unit radius keeps the 8-unit pupil inside its 14-unit eye.
+        const scale = distance ? Math.min(distance / 12, 5) / distance : 0
+        ref.current?.setAttribute('transform', `translate(${dx * scale} ${dy * scale})`)
+      }
+    }
+    const schedule = () => {
+      if (pointer && !frame) frame = requestAnimationFrame(draw)
+    }
+    const track = (event: PointerEvent) => {
+      if (settings.reducedMotion || motionPreference.matches || event.pointerType === 'touch') return
+      pointer = { x: event.clientX, y: event.clientY }
+      schedule()
+    }
+    window.addEventListener('pointermove', track, { passive: true })
+    window.addEventListener('scroll', schedule, { passive: true, capture: true })
+    window.addEventListener('resize', schedule)
+    window.addEventListener('blur', reset)
+    document.documentElement.addEventListener('pointerleave', reset)
+    motionPreference.addEventListener('change', reset)
+    return () => {
+      reset()
+      window.removeEventListener('pointermove', track)
+      window.removeEventListener('scroll', schedule, true)
+      window.removeEventListener('resize', schedule)
+      window.removeEventListener('blur', reset)
+      document.documentElement.removeEventListener('pointerleave', reset)
+      motionPreference.removeEventListener('change', reset)
+    }
+  }, [settings.reducedMotion])
 
   return (
     <div className="struggle-screen screen">
       <div className="struggle-content">
+        <button type="button" className="struggle-back" onClick={onBack}>
+          <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" /> Back to signup
+        </button>
         <h1 className="struggle-title">WHAT BEST DESCRIBE YOUR CHILD'S STRUGGLE</h1>
         <p className="struggle-hint">SELECT BUTTONS BELOW</p>
 
@@ -62,7 +129,7 @@ export default function StruggleScreen({ onSelect }: Props) {
 
       {/* Mascot flame character at bottom */}
       <div className="struggle-mascot">
-        <svg viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg ref={mascotRef} viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           {/* Flame body */}
           <path
             d="M70 155 C35 155 15 128 15 100 C15 75 30 60 30 45 C30 30 40 20 50 15 C48 28 55 35 60 30 C58 50 75 55 70 70 C80 55 85 35 80 20 C92 28 100 40 100 55 C105 45 108 30 105 15 C120 28 125 50 125 75 C125 110 110 155 70 155Z"
@@ -76,12 +143,15 @@ export default function StruggleScreen({ onSelect }: Props) {
           {/* White eye highlights */}
           <circle cx="55" cy="100" r="14" fill="white" />
           <circle cx="85" cy="100" r="14" fill="white" />
-          {/* Pupils */}
-          <circle cx="57" cy="102" r="8" fill="#3D1C02" />
-          <circle cx="87" cy="102" r="8" fill="#3D1C02" />
-          {/* Shine */}
-          <circle cx="60" cy="98" r="3" fill="white" />
-          <circle cx="90" cy="98" r="3" fill="white" />
+          {/* Each pupil and its shine move together. */}
+          <g ref={leftPupilRef} className="struggle-pupil">
+            <circle cx="55" cy="100" r="8" fill="#3D1C02" />
+            <circle cx="58" cy="96" r="3" fill="white" />
+          </g>
+          <g ref={rightPupilRef} className="struggle-pupil">
+            <circle cx="85" cy="100" r="8" fill="#3D1C02" />
+            <circle cx="88" cy="96" r="3" fill="white" />
+          </g>
           {/* Eyebrows */}
           <path d="M48 85 Q55 80 62 85" stroke="#8B2500" strokeWidth="3" strokeLinecap="round" fill="none" />
           <path d="M78 85 Q85 80 92 85" stroke="#8B2500" strokeWidth="3" strokeLinecap="round" fill="none" />
