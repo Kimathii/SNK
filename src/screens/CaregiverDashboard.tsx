@@ -8,8 +8,10 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts'
+import BottomNav from '../components/BottomNav'
 import TopBarHeader from '../components/TopBarHeader'
 import SpeakButton from '../components/SpeakButton'
+import { useAccessibility } from '../context/AccessibilityContext'
 import { CHILDREN } from './FamilyPage'
 import './CaregiverDashboard.css'
 
@@ -224,6 +226,7 @@ const notificationsData = [
 export default function CaregiverDashboard({ onNavigate }: Props) {
   const [selectedChildId, setSelectedChildId] = useState<string>('samuel')
   const [activeTab, setActiveTab] = useState<Tab>('Games')
+  const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
 
   // Modals state
   const [showGamePlanModal, setShowGamePlanModal] = useState(false)
@@ -241,6 +244,7 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
   const [sensoryCalmAudio, setSensoryCalmAudio] = useState(true)
   const [sensoryLowMotion, setSensoryLowMotion] = useState(false)
 
+  const { activeLayout } = useAccessibility()
 
   const currentChild =
     CHILDREN.find((c) => c.id === selectedChildId) ?? CHILDREN[0]
@@ -295,9 +299,9 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
           </div>
           <div className="cg-header-text">
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span className="cg-greeting">HEY, Mike</span>
+              <span className="cg-greeting">HEY, Sandra</span>
               <SpeakButton
-                text={`Hey Mike! You have active updates for ${currentChild.name}. ${currentChild.condition}.`}
+                text={`Hey Sandra! You have active updates for ${currentChild.name}. ${currentChild.condition}.`}
                 size="sm"
               />
             </div>
@@ -994,7 +998,17 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
         </div>
       )}
 
-
+      {/* Mobile Bottom Navigation */}
+      {activeLayout === 'phone' && (
+        <BottomNav
+          active={activeNav}
+          onNavigate={(n) => {
+            setActiveNav(n)
+            if (n === 'games') onNavigate('games')
+            else if (n === 'family') onNavigate('family')
+          }}
+        />
+      )}
     </div>
   )
 }

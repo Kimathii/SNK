@@ -3,7 +3,6 @@
 .caregiver-screen {
   background: #f8f9fc;
   color: var(--gray-900);
-  container-type: inline-size;
 }
 
 .caregiver-screen .screen-scroll {
@@ -1208,9 +1207,10 @@
 }
 
 /* Desktop Responsive Layout */
-@container (min-width: 1000px) {
+@media (min-width: 768px) {
   .caregiver-screen .screen-scroll {
     padding: 24px 36px 60px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -1231,7 +1231,7 @@
 
   .cg-grid-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-columns: 1.25fr 1fr;
     gap: 24px;
     padding: 0;
   }
