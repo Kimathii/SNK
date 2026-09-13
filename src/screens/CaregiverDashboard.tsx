@@ -20,6 +20,7 @@ interface Props {
     dest: 'games' | 'family' | 'student' | 'wordsplash' | 'child-profile',
     childId?: string
   ) => void
+  onLogout: () => void
 }
 
 const tabs = ['Games', 'Weekly', 'Monthly'] as const
@@ -223,7 +224,7 @@ const notificationsData = [
   },
 ]
 
-export default function CaregiverDashboard({ onNavigate }: Props) {
+export default function CaregiverDashboard({ onNavigate, onLogout }: Props) {
   const [selectedChildId, setSelectedChildId] = useState<string>('samuel')
   const [activeTab, setActiveTab] = useState<Tab>('Games')
   const [activeNav, setActiveNav] = useState<'home' | 'games' | 'family'>('home')
@@ -309,14 +310,24 @@ export default function CaregiverDashboard({ onNavigate }: Props) {
               Managing <strong>{currentChild.name}</strong> ({currentChild.condition})
             </span>
           </div>
-          <button
-            className="cg-notif-btn"
-            aria-label="Notifications"
-            onClick={() => setShowNotifsModal(true)}
-          >
-            🔔
-            <span className="cg-notif-badge">2</span>
-          </button>
+          <div className="cg-header-actions">
+            <button
+              className="cg-notif-btn"
+              aria-label="Notifications"
+              onClick={() => setShowNotifsModal(true)}
+            >
+              🔔
+              <span className="cg-notif-badge">2</span>
+            </button>
+            <button
+              className="cg-logout-btn"
+              aria-label="Log out"
+              onClick={onLogout}
+              title="Log out"
+            >
+              ⏻
+            </button>
+          </div>
         </div>
 
         {/* Child Selector Carousel */}

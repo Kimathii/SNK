@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import TopBarHeader from '../components/TopBarHeader'
 import SpeakButton from '../components/SpeakButton'
+import BottomNav from '../components/BottomNav'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './FamilyPage.css'
 
 export interface Child {
@@ -70,10 +72,12 @@ export const CHILDREN: Child[] = [
 interface Props {
   onBack: () => void
   onSelectChild: (childId: string) => void
+  onNavigateGames?: () => void
 }
 
-export default function FamilyPage({ onBack, onSelectChild }: Props) {
+export default function FamilyPage({ onBack, onSelectChild, onNavigateGames }: Props) {
   const [activeCondition, setActiveCondition] = useState<string>('All')
+  const { activeLayout } = useAccessibility()
 
   const filtered = CHILDREN.filter(
     (c) => activeCondition === 'All' || c.tags.includes(activeCondition)
@@ -172,6 +176,16 @@ export default function FamilyPage({ onBack, onSelectChild }: Props) {
 
         <div style={{ height: 24 }} />
       </div>
+
+      {activeLayout === 'phone' && (
+        <BottomNav
+          active="family"
+          onNavigate={(item) => {
+            if (item === 'home') onBack()
+            else if (item === 'games' && onNavigateGames) onNavigateGames()
+          }}
+        />
+      )}
     </div>
   )
 }
