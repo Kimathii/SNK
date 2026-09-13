@@ -1,165 +1,87 @@
-import TopBarHeader from '../components/TopBarHeader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight, faArrowUp, faArrowUpRightFromSquare, faCheck, faFont, faGamepad, faHeart, faPlus, faSliders, faStar, faWater } from '@fortawesome/free-solid-svg-icons'
 import SpeakButton from '../components/SpeakButton'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './LandingPage.css'
 
-interface Props {
-  onSignUp: () => void
-  onLogin: () => void
-}
-
-const features = [
-  {
-    icon: '🎮',
-    title: 'Therapeutic Games',
-    desc: 'Evidence-based games designed for children with SLD, ADHD, ASD and more — built with child psychologists.',
-  },
-  {
-    icon: '📊',
-    title: 'Progress Tracking',
-    desc: 'Real-time dashboards so caregivers always know where their child stands — week by week.',
-  },
-  {
-    icon: '🩺',
-    title: 'Therapy Sessions',
-    desc: 'Connect with certified therapists and schedule sessions directly inside the app.',
-    soon: true,
-  },
-  {
-    icon: '👨‍👩‍👧',
-    title: 'Family-Centered',
-    desc: 'One account for the whole family. Separate views for caregivers and each child.',
-  },
+interface Props { onSignUp: () => void; onLogin: () => void }
+const steps = [
+  { number: '01', title: 'Make it yours', text: 'Choose a student or caregiver view. Tell us what your child wants to practise.' },
+  { number: '02', title: 'Find a little adventure', text: 'Explore letters, sounds, and words in WordSplash. Start at any level.' },
+  { number: '03', title: 'Celebrate each step', text: 'Collect stars as you play. Come back to your saved progress whenever you like.' },
 ]
-
+function Logo() {
+  return <span className="lp-logo" aria-label="SNK"><span>S</span><span>N</span><span>K</span><span className="lp-logo-dot"><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span></span>
+}
 export default function LandingPage({ onSignUp, onLogin }: Props) {
+  const { settings, updateSetting, openModal, activeLayout } = useAccessibility()
   return (
-    <div className="landing-screen screen">
-      <TopBarHeader
-        title="SNK Learning Platform"
-        speechText="Welcome to SNK. The all-in-one sensory-friendly learning platform for children with special needs."
-      />
-      <div className="screen-scroll">
-
-        {/* Nav bar */}
-        <div className="lp-nav">
-          <div className="lp-logo">
-            <span className="lp-logo-s">S</span>
-            <span className="lp-logo-n">N</span>
-            <span className="lp-logo-k">K</span>
-            <span className="lp-logo-feet">👣</span>
-          </div>
-          <button className="lp-login-link" onClick={onLogin}>Log in</button>
-        </div>
-
-        {/* Hero */}
-        <div className="lp-hero">
-          <div className="lp-hero-badge">🏅 Trusted by 10,000+ families</div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-            <h1 className="lp-hero-title">
-              Every Child<br />
-              <span className="lp-hero-highlight">Deserves to Thrive</span>
-            </h1>
-            <SpeakButton text="Every child deserves to thrive. SNK is the all in one platform for special needs kids." size="md" />
-          </div>
-          <p className="lp-hero-sub">
-            SNK is the all-in-one platform for special needs kids — therapeutic games, progress tracking, and therapist access in one place.
-          </p>
-          <button className="lp-cta-primary" onClick={onSignUp}>
-            Get Started Free →
-          </button>
-          <p className="lp-hero-note">No credit card required · Takes 2 minutes</p>
-        </div>
-
-        {/* Floating stats strip */}
-        <div className="lp-stats">
-          <div className="lp-stat">
-            <span className="lp-stat-num">10K+</span>
-            <span className="lp-stat-label">Families</span>
-          </div>
-          <div className="lp-stat-divider" />
-          <div className="lp-stat">
-            <span className="lp-stat-num">4</span>
-            <span className="lp-stat-label">Game Types</span>
-          </div>
-          <div className="lp-stat-divider" />
-          <div className="lp-stat">
-            <span className="lp-stat-num">SLD</span>
-            <span className="lp-stat-label">& DND Support</span>
-          </div>
-        </div>
-
-        {/* Who it's for */}
-        <div className="lp-section">
-          <p className="lp-section-eyebrow">WHO IT'S FOR</p>
-          <h2 className="lp-section-title">Built for real families navigating real challenges</h2>
-          <div className="lp-conditions">
-            {['Dyslexia', 'Dyscalculia', 'Dysgraphia', 'ADHD', 'ASD', 'SLP'].map((c) => (
-              <span key={c} className="lp-condition-chip">{c}</span>
-            ))}
-          </div>
-        </div>
-
-        {/* Features */}
-        <div className="lp-section">
-          <p className="lp-section-eyebrow">WHAT WE OFFER</p>
-          <h2 className="lp-section-title">Everything in one place</h2>
-          <div className="lp-features">
-            {features.map((f) => (
-              <div key={f.title} className="lp-feature-card">
-                <div className="lp-feature-icon">{f.icon}</div>
-                <div className="lp-feature-body">
-                  <div className="lp-feature-title-row">
-                    <span className="lp-feature-title">{f.title}</span>
-                    {f.soon && <span className="lp-soon-badge">Coming Soon</span>}
-                  </div>
-                  <p className="lp-feature-desc">{f.desc}</p>
-                </div>
+    <div className={`landing-screen screen ${activeLayout === 'phone' ? 'lp-phone' : ''}`}>
+      <div className="screen-scroll lp-scroll">
+        <a className="lp-skip" href="#lp-main">Skip to main content</a>
+        <header className="lp-nav lp-container">
+          <a href="#lp-top" className="lp-brand"><Logo /><span className="lp-brand-caption">Little steps. Big possibilities.</span></a>
+          <nav aria-label="Main navigation" className="lp-nav-links">
+            <a href="#lp-how">How it works</a><a href="#lp-games">Our games</a>
+            <button onClick={onLogin} className="lp-login-link">Log in <span aria-hidden="true"><FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" /></span></button>
+          </nav>
+        </header>
+        <main id="lp-main" tabIndex={-1}>
+          <section className="lp-hero lp-hero-photo lp-container" id="lp-top" aria-labelledby="lp-title">
+            <img
+              className="lp-hero-image"
+              src={new URL('../../assets/header.jpg', import.meta.url).href}
+              alt="A child exploring a wooden alphabet puzzle with colorful letters."
+              width={1920}
+              height={1280}
+              fetchPriority="high"
+            />
+            <div className="lp-hero-copy">
+              <p className="lp-eyebrow"><span aria-hidden="true"><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span> A little different. A lot of possibility.</p>
+              <h1 id="lp-title">Learning at<br /><span>their own pace.</span></h1>
+              <p className="lp-hero-sub">Different minds deserve room to grow. Discover playful learning for children with different learning needs.</p>
+              <div className="lp-hero-actions">
+                <button className="lp-primary" onClick={onSignUp}>Get started <span aria-hidden="true"><FontAwesomeIcon icon={faArrowRight} aria-hidden="true" /></span></button>
+                <SpeakButton text="Welcome to SNK. Learning at their own pace. Discover playful learning for children with different learning needs. Start with WordSplash, or adjust your reading settings to make yourself comfortable." label="Listen to this" size="md" />
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Therapy teaser */}
-        <div className="lp-therapy-banner">
-          <div className="lp-therapy-inner">
-            <span className="lp-therapy-icon">🩺</span>
-            <div>
-              <p className="lp-therapy-title">Therapy Area — Coming Soon</p>
-              <p className="lp-therapy-sub">Book sessions with certified therapists who specialize in special needs children — right inside SNK.</p>
+              <p className="lp-hero-note">A small step today. A new possibility tomorrow.</p>
             </div>
-          </div>
-        </div>
-
-        {/* Social proof */}
-        <div className="lp-section">
-          <p className="lp-section-eyebrow">WHAT PARENTS SAY</p>
-          <div className="lp-testimonials">
-            <div className="lp-testimonial">
-              <p className="lp-testimonial-text">"Samuel went from dreading reading to asking to play Wordsplash every evening. SNK changed our lives."</p>
-              <span className="lp-testimonial-author">— Sandra M., Lagos</span>
+          </section>
+          <section className="lp-comfort lp-container" aria-label="Reading preferences">
+            <div><span className="lp-comfort-icon" aria-hidden="true"><FontAwesomeIcon icon={faFont} /></span><div><h2>Make yourself comfortable.</h2><p>Your screen. Your way.</p></div></div>
+            <div className="lp-comfort-controls">
+              <button aria-pressed={settings.dyslexicFont} onClick={() => updateSetting('dyslexicFont', !settings.dyslexicFont)}>Reading font <span aria-hidden="true"><FontAwesomeIcon icon={settings.dyslexicFont ? faCheck : faPlus} aria-hidden="true" /></span></button>
+              <button aria-pressed={settings.calmMode} onClick={() => updateSetting('calmMode', !settings.calmMode)}>Calm colors <span aria-hidden="true"><FontAwesomeIcon icon={settings.calmMode ? faCheck : faPlus} aria-hidden="true" /></span></button>
+              <button onClick={openModal}>All settings <span aria-hidden="true"><FontAwesomeIcon icon={faSliders} aria-hidden="true" /></span></button>
             </div>
-            <div className="lp-testimonial">
-              <p className="lp-testimonial-text">"The progress charts help me have real conversations with his school. I finally feel informed."</p>
-              <span className="lp-testimonial-author">— Chidi O., Abuja</span>
+          </section>
+          <section className="lp-section lp-container" id="lp-how" aria-labelledby="lp-how-title">
+            <div className="lp-section-heading"><div><p className="lp-eyebrow">Small steps, every day</p><h2 id="lp-how-title">A simple place to begin.</h2></div><p>No rush. No race.<br />Just a little room to try.</p></div>
+            <div className="lp-steps">{steps.map(step => <article key={step.number} className="lp-step"><span className="lp-step-number">{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div>
+          </section>
+          <section className="lp-section lp-container" id="lp-games" aria-labelledby="lp-games-title">
+            <div className="lp-section-heading"><div><p className="lp-eyebrow">A world of little wins</p><h2 id="lp-games-title">Play with purpose.</h2></div><p>One activity at a time.<br />Plenty of chances to try again.</p></div>
+            <div className="lp-game-feature">
+              <div className="lp-game-art" aria-hidden="true"><span className="lp-game-orbit"><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span><div className="lp-word-tiles"><span>C</span><span>A</span><span>T</span></div><span className="lp-game-wave"><FontAwesomeIcon icon={faWater} aria-hidden="true" /></span><p>Letters become possibilities.</p></div>
+              <div className="lp-game-copy"><span className="lp-status">Ready to explore</span><h3>WordSplash</h3><p>Pop letters. Build words. Trace new shapes. Turn reading practice into a little adventure.</p><ul><li><FontAwesomeIcon icon={faCheck} aria-hidden="true" />5 worlds to discover</li><li><FontAwesomeIcon icon={faCheck} aria-hidden="true" />50 levels, all open to explore</li><li><FontAwesomeIcon icon={faCheck} aria-hidden="true" />Listen to words as you learn</li></ul><button className="lp-text-link" onClick={onSignUp}>Start your adventure <span aria-hidden="true"><FontAwesomeIcon icon={faArrowRight} aria-hidden="true" /></span></button></div>
             </div>
+          </section>
+          <section className="lp-section lp-container lp-together" id="lp-families" aria-labelledby="lp-families-title">
+            <div><p className="lp-eyebrow">Different minds. Shared possibilities.</p><h2 id="lp-families-title">For your child.<br />And for you, too.</h2><p>Some days are for exploring. Others are for trying again. There is space for both here.</p><div className="lp-needs"><span>Dyslexia</span><span>ADHD</span><span>Different learning needs</span></div></div>
+            <div className="lp-family-notes"><article><span aria-hidden="true"><FontAwesomeIcon icon={faGamepad} aria-hidden="true" /></span><div><h3>A space for children</h3><p>Playful practice, gentle encouragement, and stars for every little win.</p></div></article><article><span aria-hidden="true"><FontAwesomeIcon icon={faHeart} aria-hidden="true" /></span><div><h3>A space for caregivers</h3><p>Explore the caregiver and family views. Preview profiles and example progress reports.</p></div></article><article><span aria-hidden="true"><FontAwesomeIcon icon={faFont} /></span><div><h3>Comfort comes first</h3><p>Adjust the text, colors, motion, and sound to find what feels right.</p></div></article></div>
+          </section>
+          <section className="lp-final-wrap lp-container" aria-labelledby="lp-ready-title"><div className="lp-final-cta"><span className="lp-final-star" aria-hidden="true"><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span><div><p className="lp-eyebrow">Start small. See where it goes.</p><h2 id="lp-ready-title">Their next little win<br />starts here.</h2><p>Let’s find their way to learn.</p></div><button className="lp-primary" onClick={onSignUp}>Get started <span aria-hidden="true"><FontAwesomeIcon icon={faArrowRight} aria-hidden="true" /></span></button></div></section>
+        </main>
+        <footer className="lp-footer">
+          <div className="lp-footer-top lp-container">
+            <div className="lp-footer-brand"><a href="#lp-top" aria-label="SNK, back to top"><Logo /></a><p>A little support.<br />A world of possibility.</p><span>© {new Date().getFullYear()} SNK.<br />All rights reserved.</span></div>
+            <nav aria-label="Discover"><h2>Discover</h2><a href="#lp-how">How it works</a><a href="#lp-games">WordSplash</a><a href="#lp-families">For families</a></nav>
+            <nav aria-label="Your space"><h2>Your space</h2><button onClick={onSignUp}>Get started</button><button onClick={onLogin}>Log in</button><a href="#lp-games">Explore learning</a></nav>
+            <nav aria-label="Make it yours"><h2>Make it yours</h2><button onClick={openModal}>Accessibility settings</button><button onClick={() => updateSetting('dyslexicFont', !settings.dyslexicFont)} aria-pressed={settings.dyslexicFont}>Reading font {settings.dyslexicFont && <FontAwesomeIcon icon={faCheck} aria-hidden="true" />}</button><button onClick={() => updateSetting('calmMode', !settings.calmMode)} aria-pressed={settings.calmMode}>Calm colors {settings.calmMode && <FontAwesomeIcon icon={faCheck} aria-hidden="true" />}</button></nav>
           </div>
-        </div>
-
-        {/* Final CTA */}
-        <div className="lp-final-cta">
-          <h2>Ready to start?</h2>
-          <p>Join thousands of families already using SNK.</p>
-          <button className="lp-cta-primary" onClick={onSignUp}>
-            Create Free Account
-          </button>
-          <button className="lp-cta-secondary" onClick={onLogin}>
-            I already have an account
-          </button>
-        </div>
-
-        <div className="lp-footer">
-          <span>© 2026 SNK. All rights reserved.</span>
-        </div>
+          <div className="lp-footer-wordmark" aria-hidden="true">SNK<span><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span></div>
+          <div className="lp-footer-bottom lp-container"><span>Every mind belongs.</span><a href="#lp-top">Back to top <FontAwesomeIcon icon={faArrowUp} aria-hidden="true" /></a></div>
+        </footer>
       </div>
     </div>
   )

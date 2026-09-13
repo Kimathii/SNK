@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStop, faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react'
 import { soundEngine } from '../utils/soundEngine'
 import { useAccessibility } from '../context/AccessibilityContext'
@@ -38,7 +40,7 @@ export default function SpeakButton({ text, label, size = 'sm', className = '' }
       title={isPlaying ? 'Stop reading' : `Read: "${text}"`}
       aria-label={isPlaying ? 'Stop reading' : `Read aloud: ${text}`}
     >
-      <span className="speak-btn-icon">{isPlaying ? '⏹️' : '🔊'}</span>
+      <span className="speak-btn-icon"><FontAwesomeIcon icon={isPlaying ? faStop : faVolumeHigh} aria-hidden="true" /></span>
       {label && <span className="speak-btn-label">{label}</span>}
       {isPlaying && <span className="speak-wave"><span></span><span></span><span></span></span>}
     </button>

@@ -141,7 +141,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       ? 'phone'
       : settings.layoutMode === 'desktop'
       ? 'desktop'
-      : windowWidth >= 768
+      : windowWidth >= 1024
       ? 'desktop'
       : 'phone'
 

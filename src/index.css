@@ -184,17 +184,6 @@ body {
   gap: 16px;
 }
 
-.app-wrapper--desktop .lp-hero {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.app-wrapper--desktop .lp-features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
 /* Phone shell wrapper */
 .phone-shell {
   width: 390px;
@@ -248,4 +237,3 @@ input {
   font-family: var(--font-body);
   outline: none;
 }
-

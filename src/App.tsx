@@ -201,7 +201,7 @@ function MainApp() {
             <div
               className="desktop-content-inner"
               style={{
-                maxWidth: currentScreen === 'landing' ? 1200 : 960,
+                maxWidth: currentScreen === 'landing' ? 'none' : 960,
                 margin: '0 auto',
                 minHeight: '100vh',
                 display: 'flex',
