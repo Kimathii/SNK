@@ -168,10 +168,14 @@ function MainApp() {
 
         {currentScreen === 'caregiver' && (
           <CaregiverDashboard
-            onNavigate={(dest) => {
+            onNavigate={(dest, childId) => {
+              if (childId) {
+                setAppState((s) => ({ ...s, selectedChildId: childId }))
+              }
               if (dest === 'games') navigate('games')
               else if (dest === 'family') navigate('family')
               else if (dest === 'student') navigate('student')
+              else if (dest === 'child-profile') navigate('child-profile')
               else if (dest === 'wordsplash') navigate('wordsplash')
             }}
           />
