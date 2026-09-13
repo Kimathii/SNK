@@ -140,6 +140,36 @@
   border: 2px solid white;
 }
 
+/* Header actions group (notif + logout) */
+.cg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cg-logout-btn {
+  background: #fff1f1;
+  border: none;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #e74c3c;
+  transition: all 0.2s;
+}
+
+.cg-logout-btn:hover {
+  background: #ffe0e0;
+  transform: scale(1.05);
+}
+
+
+
 /* Child Selector Carousel */
 .cg-child-selector-container {
   padding: 14px 16px 10px;

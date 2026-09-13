@@ -108,6 +108,11 @@ function MainApp() {
     navigate(nextRole)
   }
 
+  const handleLogout = () => {
+    setAppState({ selectedStruggle: null, userRole: null, selectedChildId: null })
+    navigate('landing')
+  }
+
   const isDesktop = activeLayout === 'desktop'
   const isAuthScreen = [
     'landing',
@@ -179,6 +184,7 @@ function MainApp() {
               else if (dest === 'child-profile') navigate('child-profile')
               else if (dest === 'wordsplash') navigate('wordsplash')
             }}
+            onLogout={handleLogout}
           />
         )}
 
@@ -197,6 +203,7 @@ function MainApp() {
             role={appState.userRole ?? 'caregiver'}
             onBack={() => navigate(homeScreen)}
             onPlayGame={handlePlayGame}
+            onNavigateFamily={() => navigate('family')}
           />
         )}
 
@@ -211,6 +218,7 @@ function MainApp() {
               setAppState((s) => ({ ...s, selectedChildId: childId }))
               navigate('child-profile')
             }}
+            onNavigateGames={() => navigate('games')}
           />
         )}
 

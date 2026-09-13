@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import TopBarHeader from '../components/TopBarHeader'
 import SpeakButton from '../components/SpeakButton'
+import BottomNav from '../components/BottomNav'
+import { useAccessibility } from '../context/AccessibilityContext'
 import './GamesLibrary.css'
 
 interface Props {
   onBack: () => void
   role: 'caregiver' | 'student'
   onPlayGame?: (gameId: string) => void
+  onNavigateFamily?: () => void
 }
 
 type Filter = 'All' | 'SLD' | 'DND'
@@ -68,9 +71,10 @@ const GAMES = [
 
 const FILTERS: Filter[] = ['All', 'SLD', 'DND']
 
-export default function GamesLibrary({ onBack, role, onPlayGame }: Props) {
+export default function GamesLibrary({ onBack, role, onPlayGame, onNavigateFamily }: Props) {
   const [activeFilter, setActiveFilter] = useState<Filter>('All')
   const [search, setSearch] = useState('')
+  const { activeLayout } = useAccessibility()
 
   const filtered = GAMES.filter((g) => {
     const matchesFilter = activeFilter === 'All' || g.tags.includes(activeFilter)
@@ -220,6 +224,16 @@ export default function GamesLibrary({ onBack, role, onPlayGame }: Props) {
 
         <div style={{ height: 24 }} />
       </div>
+
+      {activeLayout === 'phone' && (
+        <BottomNav
+          active="games"
+          onNavigate={(item) => {
+            if (item === 'home') onBack()
+            else if (item === 'family' && onNavigateFamily) onNavigateFamily()
+          }}
+        />
+      )}
     </div>
   )
 }
