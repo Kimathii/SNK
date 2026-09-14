@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useAccessibility } from '../context/AccessibilityContext'
 import { soundEngine } from '../utils/soundEngine'
+import Logo from './Logo'
 import './DesktopSidebar.css'
 
 interface Props {
@@ -56,13 +57,8 @@ export default function DesktopSidebar({
   return (
     <aside className="desktop-sidebar">
       {/* Brand */}
-      <div className="sidebar-brand" onClick={() => onNavigate('landing')}>
-        <div className="sidebar-logo">
-          <span className="logo-s">S</span>
-          <span className="logo-n">N</span>
-          <span className="logo-k">K</span>
-          <span className="logo-feet">👣</span>
-        </div>
+      <div className="sidebar-brand" onClick={() => onNavigate('landing')} title="SNK Home">
+        <Logo size="md" />
         <span className="sidebar-tagline">Special Needs Kids</span>
       </div>
 

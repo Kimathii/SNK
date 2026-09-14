@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowUp, faArrowUpRightFromSquare, faCheck, faFont, faGamepad, faHeart, faPlus, faSliders, faStar, faWater } from '@fortawesome/free-solid-svg-icons'
 import SpeakButton from '../components/SpeakButton'
 import LetterCatch from '../components/LetterCatch'
+import Logo from '../components/Logo'
 import { useAccessibility } from '../context/AccessibilityContext'
 import './LandingPage.css'
 
@@ -11,9 +12,7 @@ const steps = [
   { number: '02', title: 'Find a little adventure', text: 'Explore letters, sounds, and words in WordSplash. Start at any level.' },
   { number: '03', title: 'Celebrate each step', text: 'Collect stars as you play. Come back to your saved progress whenever you like.' },
 ]
-function Logo() {
-  return <span className="lp-logo" aria-label="SNK"><span>S</span><span>N</span><span>K</span><span className="lp-logo-dot"><FontAwesomeIcon icon={faStar} aria-hidden="true" /></span></span>
-}
+
 export default function LandingPage({ onSignUp, onLogin }: Props) {
   const { settings, updateSetting, openModal, activeLayout } = useAccessibility()
   const pageRef = useRef<HTMLDivElement>(null)

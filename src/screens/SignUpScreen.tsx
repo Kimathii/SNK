@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faCheck, faEye, faEyeSlash, faGraduationCap, faSliders } from '@fortawesome/free-solid-svg-icons'
 import { useAccessibility } from '../context/AccessibilityContext'
+import Logo from '../components/Logo'
 import './SignUpScreen.css'
 
 type Role = 'student' | 'caregiver'
@@ -31,7 +32,7 @@ export default function SignUpScreen({ mode, onContinue, onModeChange, onBack }:
       <main className="auth-card">
         <section className="auth-welcome" aria-labelledby="auth-welcome-title">
           <button type="button" className="auth-wordmark" onClick={onBack} aria-label="SNK — back to landing page">
-            <span aria-hidden="true" className="auth-logo-letters"><span>S</span><span>N</span><span>K</span></span>
+            <Logo size="md" />
           </button>
           <div className="auth-mascot" aria-hidden="true">
             <svg viewBox="0 0 180 215" fill="none">

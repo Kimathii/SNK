@@ -20,12 +20,10 @@
 .lp-skip { position: absolute; top: 8px; left: 16px; transform: translateY(-180%); z-index: 20; padding: 12px 20px; background: var(--lp-panel); border-radius: 8px; }
 .lp-skip:focus { transform: none; }
 .lp-nav { display: flex; align-items: center; justify-content: space-between; min-height: 108px; gap: 24px; border-bottom: 1px solid var(--lp-line); }
-.lp-brand { display: flex; align-items: center; gap: 20px; }
-.lp-logo { display: inline-flex; font-family: var(--font-display); font-size: 2.3rem; line-height: 1; letter-spacing: -1px; }
-.lp-logo > span:nth-child(1) { color: #65a9ec; }
-.lp-logo > span:nth-child(2) { color: #f5c518; }
-.lp-logo > span:nth-child(3) { color: #f47f76; }
-.lp-logo .lp-logo-dot { color: var(--lp-green); font-size: 1.2rem; margin-left: 5px; align-self: flex-start; }
+.lp-brand { display: flex; align-items: center; gap: 16px; }
+.lp-brand .snk-brand-logo { transition: transform 0.25s ease; }
+.lp-brand:hover .snk-brand-logo { transform: scale(1.04); }
+
 .lp-brand-caption { font-size: .75rem; color: var(--lp-muted); max-width: 110px; line-height: 1.5; }
 .lp-nav-links { display: flex; align-items: center; gap: 28px; font-size: .875rem; font-weight: 700; }
 .lp-nav-links a { padding-block: 12px; }

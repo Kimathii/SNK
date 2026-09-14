@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Logo from '../components/Logo'
 import './SplashScreen.css'
 
 interface Props {
@@ -9,33 +10,21 @@ export default function SplashScreen({ onNext }: Props) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
-    setAnimate(true)
-    const timer = setTimeout(onNext, 2800)
-    return () => clearTimeout(timer)
+    // Trigger logo entrance
+    const timer = setTimeout(() => setAnimate(true), 150)
+    // Automatically transition to next screen after splash display
+    const nextTimer = setTimeout(() => onNext(), 2200)
+
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(nextTimer)
+    }
   }, [onNext])
 
   return (
-    <div className="splash-screen">
+    <div className="splash-screen" onClick={onNext} role="button" tabIndex={0} aria-label="Skip splash">
       <div className={`splash-logo ${animate ? 'splash-logo--in' : ''}`}>
-        {/* Stars */}
-        <div className="splash-stars">
-          <span className="star star--sm star--purple">★</span>
-          <span className="star star--md star--yellow">★</span>
-          <span className="star star--lg star--yellow">★</span>
-          <span className="star star--md star--yellow">★</span>
-          <span className="star star--sm star--purple">★</span>
-        </div>
-
-        {/* Logo badge */}
-        <div className="splash-badge">
-          <div className="splash-badge__green-hill" />
-          <div className="splash-badge__dark">
-            <span className="snk-letter snk-letter--s">S</span>
-            <span className="snk-letter snk-letter--n">N</span>
-            <span className="snk-letter snk-letter--k">K</span>
-            <div className="splash-badge__feet">👣</div>
-          </div>
-        </div>
+        <Logo size="xl" />
       </div>
     </div>
   )

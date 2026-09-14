@@ -1,0 +1,50 @@
+.snk-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.snk-brand-logo__svg {
+  display: block;
+  height: auto;
+  overflow: visible;
+}
+
+/* Sizing options */
+.snk-brand-logo--sm .snk-brand-logo__svg {
+  width: 90px;
+}
+
+.snk-brand-logo--md .snk-brand-logo__svg {
+  width: 130px;
+}
+
+.snk-brand-logo--lg .snk-brand-logo__svg {
+  width: 180px;
+}
+
+.snk-brand-logo--xl .snk-brand-logo__svg {
+  width: 260px;
+}
+
+/* Letter Typography styling */
+.snk-logo-letter {
+  font-family: 'Fredoka One', 'Nunito', system-ui, -apple-system, sans-serif;
+  font-weight: 900;
+  font-size: 50px;
+  letter-spacing: -2px;
+  dominant-baseline: alphabetic;
+}
+
+.snk-logo-letter--s {
+  fill: #2ECC71;
+}
+
+.snk-logo-letter--n {
+  fill: #F5C518;
+}
+
+.snk-logo-letter--k {
+  fill: #4F55E8;
+}
